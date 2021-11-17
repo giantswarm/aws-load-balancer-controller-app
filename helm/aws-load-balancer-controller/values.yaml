@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository: 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller
+  repository: quay.io/giantswarm/aws-alb-ingress-controller
   tag: v2.3.0
   pullPolicy: IfNotPresent
 
@@ -14,7 +14,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 # The name of the Kubernetes cluster. A non-empty value is required
-clusterName:
+# For GS clusters the clusterName is set automatically.
+# clusterName: 
 
 serviceAccount:
   # Specifies whether a service account should be created
