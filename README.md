@@ -18,7 +18,7 @@ AWS Load Balancer controller manages the following AWS resources
 The controller runs on the worker nodes, so it needs access to the AWS ALB/NLB resources via IAM permissions. The
 IAM permissions can be setup through the kiam-app.
 
-Download IAM policy for the AWS Load Balancer Controller
+Download the recommended IAM policy for the AWS Load Balancer Controller
     ```
     curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
     ```
@@ -34,47 +34,22 @@ There are 3 ways to install this app onto a workload cluster.
 3. Directly creating the [App custom resource](https://docs.giantswarm.io/ui-api/management-api/crd/apps.application.giantswarm.io/) on the management cluster.
 
 ## Configuring
+Additionally to the IAM role, the region (e.g. eu-west-1) and the VPC ID are required.
 
 ### values.yaml
 **This is an example of a values file you could upload using our web interface.**
 ```
-# values.yaml
-
-```
-
-### Sample App CR and ConfigMap for the management cluster
-If you have access to the Kubernetes API on the management cluster, you could create
-the App CR and ConfigMap directly.
-
-Here is an example that would install the app to
-workload cluster `abc12`:
-
-```
-# appCR.yaml
-
-```
-
-```
-# user-values-configmap.yaml
-
+regions: eu-west-1
+serviceAccount:
+    create: true
+podAnnotations:
+    iam.amazonaws.com/role: AWSLoadBalancerControllerIAMRole # Will be picked up by KIAM to associate the pod with the given role
+vpcId: vpc-0c7dc1da1ca5b1819
 
 ```
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
 
-## Compatibility
-
-This app has been tested to work with the following workload cluster release versions:
-
-*
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-*
-
 ## Credit
 
-* {APP HELM REPOSITORY}
+* https://github.com/giantswarm/aws-load-balancer-controller-app/tree/main/helm/aws-load-balancer-controller
