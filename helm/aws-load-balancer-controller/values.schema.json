@@ -1,0 +1,259 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "affinity": {
+            "type": "object"
+        },
+        "awsApiEndpoints": {
+            "type": ["null", "string"]
+        },
+        "awsMaxRetries": {
+            "type": ["null", "integer"]
+        },
+        "backendSecurityGroup": {
+            "type": ["null", "string"]
+        },
+        "clusterName": {
+            "type": ["null", "string"]
+        },
+        "createIngressClassResource": {
+            "type": "boolean"
+        },
+        "defaultSSLPolicy": {
+            "type": ["null", "string"]
+        },
+        "defaultTags": {
+            "type": "object"
+        },
+        "disableIngressClassAnnotation": {
+            "type": ["null", "boolean"]
+        },
+        "disableIngressGroupNameAnnotation": {
+            "type": ["null", "boolean"]
+        },
+        "disableRestrictedSecurityGroupRules": {
+            "type": ["null", "boolean"]
+        },
+        "enableBackendSecurityGroup": {
+            "type": ["null", "boolean"]
+        },
+        "enableCertManager": {
+            "type": "boolean"
+        },
+        "enableEndpointSlices": {
+            "type": ["null", "boolean"]
+        },
+        "enablePodReadinessGateInject": {
+            "type": ["null", "boolean"]
+        },
+        "enableShield": {
+            "type": ["null", "boolean"]
+        },
+        "enableWaf": {
+            "type": ["null", "boolean"]
+        },
+        "enableWafv2": {
+            "type": ["null", "boolean"]
+        },
+        "env": {
+            "type": ["null", "object"]
+        },
+        "externalManagedTags": {
+            "type": "array"
+        },
+        "extraVolumeMounts": {
+            "type": ["null", "array"]
+        },
+        "extraVolumes": {
+            "type": ["null", "array"]
+        },
+        "fullnameOverride": {
+            "type": ["null", "string"]
+        },
+        "hostNetwork": {
+            "type": "boolean"
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+        "imagePullSecrets": {
+            "type": "array"
+        },
+        "ingressClass": {
+            "type": "string"
+        },
+        "ingressMaxConcurrentReconciles": {
+            "type": ["null", "integer"]
+        },
+        "keepTLSSecret": {
+            "type": "boolean"
+        },
+        "livenessProbe": {
+            "type": "object",
+            "properties": {
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "httpGet": {
+                    "type": "object",
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        },
+                        "scheme": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "initialDelaySeconds": {
+                    "type": "integer"
+                },
+                "timeoutSeconds": {
+                    "type": "integer"
+                }
+            }
+        },
+        "logLevel": {
+            "type": "null"
+        },
+        "metricsBindAddr": {
+            "type": "string"
+        },
+        "nameOverride": {
+            "type": ["null", "string"]
+        },
+        "nodeSelector": {
+            "type": "object"
+        },
+        "podAnnotations": {
+            "type": "object"
+        },
+        "podDisruptionBudget": {
+            "type": "object"
+        },
+        "podLabels": {
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "properties": {
+                "fsGroup": {
+                    "type": "integer"
+                }
+            }
+        },
+        "priorityClassName": {
+            "type": "string"
+        },
+        "rbac": {
+            "type": "object",
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "region": {
+            "type": ["null", "string"]
+        },
+        "replicaCount": {
+            "type": "integer"
+        },
+        "resources": {
+            "type": "object"
+        },
+        "securityContext": {
+            "type": "object",
+            "properties": {
+                "allowPrivilegeEscalation": {
+                    "type": "boolean"
+                },
+                "readOnlyRootFilesystem": {
+                    "type": "boolean"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "automountServiceAccountToken": {
+                    "type": "boolean"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": ["null", "string"]
+                }
+            }
+        },
+        "serviceAnnotations": {
+            "type": "object"
+        },
+        "serviceMaxConcurrentReconciles": {
+            "type": ["null", "integer"]
+        },
+        "syncPeriod": {
+            "type": ["null", "string"]
+        },
+        "targetgroupbindingMaxConcurrentReconciles": {
+            "type": ["null", "integer"]
+        },
+        "targetgroupbindingMaxExponentialBackoffDelay": {
+            "type": ["null", "integer"]
+        },
+        "terminationGracePeriodSeconds": {
+            "type": "integer"
+        },
+        "tolerations": {
+            "type": "array"
+        },
+        "updateStrategy": {
+            "type": "object"
+        },
+        "vpcId": {
+            "type": ["null", "string"]
+        },
+        "watchNamespace": {
+            "type": "string"
+        },
+        "webhookBindPort": {
+            "type": ["null", "integer", "string"]
+        },
+        "webhookTLS": {
+            "type": "object",
+            "properties": {
+                "caCert": {
+                    "type": ["null", "string"]
+                },
+                "cert": {
+                    "type": ["null", "string"]
+                },
+                "key": {
+                    "type": ["null", "string"]
+                }
+            }
+        }
+    }
+}

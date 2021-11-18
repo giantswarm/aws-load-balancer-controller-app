@@ -15,7 +15,7 @@ fullnameOverride: ""
 
 # The name of the Kubernetes cluster. A non-empty value is required
 # For GS clusters the clusterName is set automatically.
-# clusterName: 
+clusterName: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
