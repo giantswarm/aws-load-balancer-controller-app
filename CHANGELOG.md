@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2021-11-19
+
 ### Added
 
 - Implement network policy to allow egress traffic
@@ -22,5 +24,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/releases/tag/v0.1.0
