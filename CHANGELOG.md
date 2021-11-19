@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Implement network policy to allow egress traffic
+
+### Updated
+- values.yaml with resource limits/requests
+- values.yaml validation schema
+
 ## [0.1.0] - 2021-11-19
 
 ### Added
