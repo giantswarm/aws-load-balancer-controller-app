@@ -4,6 +4,8 @@ metadata:
   name: {{ include "aws-load-balancer-controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
+    giantswarm.io/service-type: "managed"
+    giantswarm.io/monitoring_basic_sli: "true"
     {{- include "aws-load-balancer-controller.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}

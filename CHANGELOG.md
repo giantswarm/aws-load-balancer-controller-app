@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Metrics service
+- Giant Swarm monitoring labels to deployment template
+
+## [1.0.0] - 2021-11-19
+
+### Added
+
 - Implement network policy to allow egress traffic
 
 ### Updated
