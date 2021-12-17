@@ -23,7 +23,7 @@ Download the recommended IAM policy for the AWS Load Balancer Controller
     curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
     ```
 
-For a thorough explanation on how to create the IAM policy and role please refer to the [upstream charts README.md.](helm/aws-load-balancer-controller/README.md)
+For a thorough explanation on how to create the IAM policy and role please refer to the [upstream charts README.md.](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/helm/aws-load-balancer-controller/README.md)
 
 ## Installing
 
