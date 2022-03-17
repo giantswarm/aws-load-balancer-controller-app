@@ -17,6 +17,14 @@
         "clusterName": {
             "type": ["null", "string"]
         },
+        "clusterSecretsPermissions": {
+            "type": "object",
+            "properties": {
+                "allowAllSecrets": {
+                    "type": "boolean"
+                }
+            }
+        },
         "createIngressClassResource": {
             "type": "boolean"
         },
@@ -34,6 +42,9 @@
         },
         "disableRestrictedSecurityGroupRules": {
             "type": ["null", "boolean"]
+        },
+        "dnsPolicy": {
+            "type": ["null", "string"]
         },
         "enableBackendSecurityGroup": {
             "type": ["null", "boolean"]
@@ -94,6 +105,20 @@
         "ingressClass": {
             "type": "string"
         },
+        "ingressClassParams": {
+            "type": "object",
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": ["null", "string"]
+                },
+                "spec": {
+                    "type": "object"
+                }
+            }
+        },
         "ingressMaxConcurrentReconciles": {
             "type": ["null", "integer"]
         },
@@ -139,6 +164,17 @@
         },
         "nodeSelector": {
             "type": "object"
+        },
+        "objectSelector": {
+            "type": "object",
+            "properties": {
+                "matchExpressions": {
+                    "type": ["null", "array"]
+                },
+                "matchLabels": {
+                    "type": ["null", "object"]
+                }
+            }
         },
         "podAnnotations": {
             "type": "object"
@@ -237,6 +273,20 @@
         },
         "serviceMaxConcurrentReconciles": {
             "type": ["null", "integer"]
+        },
+        "serviceMonitor": {
+            "type": "object",
+            "properties": {
+                "additionalLabels": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "interval": {
+                    "type": "string"
+                }
+            }
         },
         "syncPeriod": {
             "type": ["null", "string"]
