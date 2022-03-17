@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Synchronize with upstream helm chart version 1.4.1 containing AWS Load Balancer Controller [v2.4.1](https://github.com/kubernetes-sigs/aws-load-balancer-controller/releases/tag/v2.4.1)
+
 ## [1.0.3] - 2021-12-17
 
 ### Changed
