@@ -5,6 +5,7 @@ version: 1.4.1
 appVersion: v2.4.1
 home: https://github.com/giantswarm/aws-load-balancer-controller-app
 icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
+kubeVersion: ">=1.19.0-0"
 annotations:
   application.giantswarm.io/team: cabbage
 sources:
