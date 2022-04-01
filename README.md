@@ -39,7 +39,7 @@ Additionally to the IAM role, the region (e.g. eu-west-1) and the VPC ID are req
 ### values.yaml
 **This is an example of a values file you could upload using our web interface.**
 ```
-regions: eu-west-1
+region: eu-west-1
 serviceAccount:
     create: true
 podAnnotations:
