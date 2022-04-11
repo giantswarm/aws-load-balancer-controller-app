@@ -180,7 +180,12 @@
             "type": "object"
         },
         "podDisruptionBudget": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "minAvailable": {
+                    "type": "integer"
+                }
+            }
         },
         "podLabels": {
             "type": "object"
