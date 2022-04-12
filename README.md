@@ -41,10 +41,6 @@ By default, a [PodDisruptionBudget](https://kubernetes.io/docs/tasks/run-applica
 ### values.yaml
 **This is an example of a values file you could upload using our web interface.**
 ```
-# RBAC
-serviceAccount:
-    create: true
-
 # Deployment
 podAnnotations:
     iam.amazonaws.com/role: AWSLoadBalancerControllerIAMRole # Will be picked up by KIAM to associate the pod with the given role
