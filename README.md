@@ -36,7 +36,7 @@ There are 3 ways to install this app onto a workload cluster.
 ## Configuring
 Additionally to the IAM role, the region (e.g. eu-west-1) and the VPC ID are required.
 
-By default, a PodDisruptionBudget is configured so the admission webhook does not become unreachable, possibly blocking scheduling other pods or cluster maintenances.
+By default, a [PodDisruptionBudget](https://kubernetes.io/docs/tasks/run-application/configure-pdb) is configured so the admission webhook does not become unreachable, possibly blocking scheduling other pods or cluster maintenances.
 
 ### values.yaml
 **This is an example of a values file you could upload using our web interface.**
