@@ -50,11 +50,6 @@ podAnnotations:
     iam.amazonaws.com/role: AWSLoadBalancerControllerIAMRole # Will be picked up by KIAM to associate the pod with the given role
 vpcId: vpc-0c7dc1da1ca5b1819
 region: eu-west-1
-
-# PodDisruptionBudget
-podDisruptionBudget:
-  minAvailable: 1
-  # maxUnavailable: 1
 ```
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
