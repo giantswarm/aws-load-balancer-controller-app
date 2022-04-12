@@ -36,16 +36,25 @@ There are 3 ways to install this app onto a workload cluster.
 ## Configuring
 Additionally to the IAM role, the region (e.g. eu-west-1) and the VPC ID are required.
 
+By default, a PodDisruptionBudget is configured so the admission webhook does not become unreachable, possibly blocking scheduling other pods or cluster maintenances.
+
 ### values.yaml
 **This is an example of a values file you could upload using our web interface.**
 ```
-region: eu-west-1
+# RBAC
 serviceAccount:
     create: true
+
+# Deployment
 podAnnotations:
     iam.amazonaws.com/role: AWSLoadBalancerControllerIAMRole # Will be picked up by KIAM to associate the pod with the given role
 vpcId: vpc-0c7dc1da1ca5b1819
+region: eu-west-1
 
+# PodDisruptionBudget
+podDisruptionBudget:
+  minAvailable: 1
+  # maxUnavailable: 1
 ```
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
