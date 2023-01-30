@@ -15,9 +15,6 @@
 {{- end -}}
 
 {{- define "aws-load-balancer-controller.iamPodAnnotation" -}}
-{{- if empty .Values.clusterID -}}
-{{- fail "Unable to install. Missing .Values.clusterID" -}}
-{{- end -}}
 {{- if .Values.clusterID }}
 iam.amazonaws.com/role: {{ printf "gs-%s-ALBController-Role" .Values.clusterID | quote }}
 {{- end }}
