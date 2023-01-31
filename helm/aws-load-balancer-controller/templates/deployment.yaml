@@ -29,6 +29,7 @@ spec:
         {{- if .Values.podAnnotations }}
         {{- toYaml .Values.podAnnotations | nindent 8 }}
         {{- end }}
+        {{- include "aws-load-balancer-controller.iamPodAnnotation" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -62,12 +63,8 @@ spec:
         {{- if .Values.ingressClass }}
         - --ingress-class={{ .Values.ingressClass }}
         {{- end }}
-        {{- if .Values.region }}
-        - --aws-region={{ .Values.region }}
-        {{- end }}
-        {{- if .Values.vpcId }}
-        - --aws-vpc-id={{ .Values.vpcId }}
-        {{- end }}
+        {{- include "aws-load-balancer-controller.regionArg" . | nindent 8 }}
+        {{- include "aws-load-balancer-controller.vpcIdArg" . | nindent 8 }}
         {{- if .Values.awsApiEndpoints }}
         - --aws-api-endpoints={{ .Values.awsApiEndpoints }}
         {{- end }}
