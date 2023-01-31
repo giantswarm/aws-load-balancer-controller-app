@@ -33,6 +33,45 @@ There are 3 ways to install this app onto a workload cluster.
 2. [Using our API](https://docs.giantswarm.io/api/#operation/createClusterAppV5)
 3. Directly creating the [App custom resource](https://docs.giantswarm.io/ui-api/management-api/crd/apps.application.giantswarm.io/) on the management cluster.
 
+To automatically configure the correct KIAM annotation on the namespace, you can specify additional annotations directly in your App CR:
+
+Starting with [Giant Swarm Release 18.2.0](https://docs.giantswarm.io/changes/workload-cluster-releases-aws/releases/aws-v18.2.0/), aws-load-balancer-controller can be installed without specifying any additional configuration:
+
+```
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  name: aws-load-balancer-controller
+  namespace: <your-cluster-id>
+spec:
+  catalog: giantswarm
+  kubeConfig:
+    inCluster: false
+  name: aws-load-balancer-controller
+  namespace: aws-load-balancer-controller
+  namespaceConfig:
+    annotations:
+      iam.amazonaws.com/permitted: .*
+  version: 1.2.1
+```
+
+For all other releases, specify at least these values (Don't forget to reference your ConfigMap in the App CRs `spec.userConfig`):
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-load-balancer-controller-userconfig
+  namespace: <your-cluster-id>
+data:
+  values: |
+    podAnnotations:
+        # don't forget to create the role and policy before trying to use them
+        iam.amazonaws.com/role: gs-<your-cluster-id>-ALBController-Role
+    vpcId: vpc-0c7dc1da1ca5b1819 # the VPC Id of your cluster
+    region: eu-west-1 # The AWS region your cluster is running in
+```
+
 ## Configuring
 Additionally to the IAM role, the region (e.g. eu-west-1) and the VPC ID are required.
 
