@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add helpers for setting values `region`, `vpcId` and IAM role annotations automatically from Giant Swarm provided default cluster values.
+
 ## [1.2.0] - 2022-04-12
 
 ### Changed
