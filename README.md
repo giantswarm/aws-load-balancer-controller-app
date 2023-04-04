@@ -5,9 +5,11 @@
 AWS Load Balancer controller Helm chart for Giant Swarm clusters
 
 ## Introduction
-AWS Load Balancer controller manages the following AWS resources
+[AWS Load Balancer](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html) controller manages the following AWS resources
 - Application Load Balancers to satisfy Kubernetes ingress objects
 - Network Load Balancers to satisfy Kubernetes service objects of type LoadBalancer with appropriate annotations
+
+If your use case does not require an NLB, consider using the Kubernetes In-Tree [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) instead of the AWS Load Balancer Controller. An AWS Application Load Balancer can be provisioned when creating a Kubernetes `Ingress` in which case the AWS Load Balancer Controller may not be needed.
 
 ## Index
 - [Prerequisites](#prerequisites)
