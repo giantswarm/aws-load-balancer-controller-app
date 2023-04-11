@@ -102,7 +102,6 @@ If you have suggestions for how `aws-load-balancer-controller` could be improved
 
 Check out the [Contributing Guide](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
-
 ## Credit
 
 * https://github.com/giantswarm/aws-load-balancer-controller-app/tree/main/helm/aws-load-balancer-controller
