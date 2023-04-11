@@ -5,11 +5,9 @@
 AWS Load Balancer controller Helm chart for Giant Swarm clusters
 
 ## Introduction
-[AWS Load Balancer](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html) controller manages the following AWS resources
+[AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/) controller manages the following AWS resources
 - Application Load Balancers to satisfy Kubernetes ingress objects
 - Network Load Balancers to satisfy Kubernetes service objects of type LoadBalancer with appropriate annotations
-
-If your use case does not require an NLB, consider using the Kubernetes In-Tree [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) instead of the AWS Load Balancer Controller. An AWS Application Load Balancer can be provisioned when creating a Kubernetes `Ingress` in which case the AWS Load Balancer Controller may not be needed.
 
 ## Index
 - [Prerequisites](#prerequisites)
@@ -27,13 +25,12 @@ If your use case does not require an NLB, consider using the Kubernetes In-Tree 
 The controller runs on the worker nodes, so it needs access to the AWS ALB/NLB resources via IAM permissions. The
 IAM permissions can be setup through the kiam-app.
 
+This step is only required on clusters managed by **Cluster API**. Vintage clusters do this automatically.
+
 Download the recommended IAM policy for the AWS Load Balancer Controller
 ```bash
 curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
 ```
-
-## Security Updates
-**Note**: Deployed chart does not receive security updates automatically. You need to manually upgrade to a newer chart.
 
 For a thorough explanation on how to create the IAM policy and role please refer to the [upstream charts README.md.](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/helm/aws-load-balancer-controller/README.md)
 
