@@ -5,12 +5,18 @@
 AWS Load Balancer controller Helm chart for Giant Swarm clusters
 
 ## Introduction
-AWS Load Balancer controller manages the following AWS resources
+[AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/) controller manages the following AWS resources
 - Application Load Balancers to satisfy Kubernetes ingress objects
 - Network Load Balancers to satisfy Kubernetes service objects of type LoadBalancer with appropriate annotations
 
-## Security updates
-**Note**: Deployed chart does not receive security updates automatically. You need to manually upgrade to a newer chart.
+## Index
+- [Prerequisites](#prerequisites)
+- [Installing](#installing)
+- [Configuring](#configuring)
+  - [values.yaml](#valuesyaml)
+- [Release Process](#release-process)
+- [Contributing & Reporting Bugs](#contributing--reporting-bugs)
+- [Credit](#credit)
 
 ## Prerequisites
 - kiam-app installed
@@ -18,10 +24,12 @@ AWS Load Balancer controller manages the following AWS resources
 The controller runs on the worker nodes, so it needs access to the AWS ALB/NLB resources via IAM permissions. The
 IAM permissions can be setup through the kiam-app.
 
+This step is only required on clusters managed by **Cluster API**. Vintage clusters do this automatically.
+
 Download the recommended IAM policy for the AWS Load Balancer Controller
-    ```
-    curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
-    ```
+```bash
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
+```
 
 For a thorough explanation on how to create the IAM policy and role please refer to the [upstream charts README.md.](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/helm/aws-load-balancer-controller/README.md)
 
@@ -37,7 +45,7 @@ To automatically configure the correct KIAM annotation on the namespace, you can
 
 Starting with [Giant Swarm Release 18.2.0](https://docs.giantswarm.io/changes/workload-cluster-releases-aws/releases/aws-v18.2.0/), aws-load-balancer-controller can be installed without specifying any additional configuration:
 
-```
+```yaml
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
@@ -57,7 +65,7 @@ spec:
 
 For all other releases, specify at least these values (Don't forget to reference your ConfigMap in the App CRs `spec.userConfig`):
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -88,6 +96,11 @@ region: eu-west-1
 ```
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
+
+## Contributing & Reporting Bugs
+If you have suggestions for how `aws-load-balancer-controller` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+
+Check out the [Contributing Guide](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
 
 ## Credit
 
