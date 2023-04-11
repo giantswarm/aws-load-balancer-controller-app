@@ -11,7 +11,6 @@ AWS Load Balancer controller Helm chart for Giant Swarm clusters
 
 ## Index
 - [Prerequisites](#prerequisites)
-- [Security Updates](#security-updates)
 - [Installing](#installing)
 - [Configuring](#configuring)
   - [values.yaml](#valuesyaml)
