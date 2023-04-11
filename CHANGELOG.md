@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-04-11
+
 ### Added
 
 - Add IRSA annotation automatically based on Account ID and Cluster ID.
@@ -63,7 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.0.3...v1.1.0
