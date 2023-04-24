@@ -4,7 +4,7 @@ description: A controller to help manage Elastic Load Balancers for a Kubernetes
 version: 1.3.0
 appVersion: v2.4.1
 home: https://github.com/giantswarm/aws-load-balancer-controller-app
-icon: https://raw.githubusercontent.com/aws/eks-charts/master/docs/logo/aws.png
+icon: https://s.giantswarm.io/app-icons/aws/1/dark.svg
 kubeVersion: ">=1.19.0-0"
 annotations:
   application.giantswarm.io/team: cabbage
