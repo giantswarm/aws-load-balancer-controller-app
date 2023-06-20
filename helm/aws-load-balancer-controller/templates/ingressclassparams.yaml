@@ -1,4 +1,4 @@
-{{ if eq (include "resource.ingressClassParams.enabled" .) "true" }}
+{{- if .Values.ingressClassParams.create }}
 apiVersion: elbv2.k8s.aws/v1beta1
 kind: IngressClassParams
 metadata:
