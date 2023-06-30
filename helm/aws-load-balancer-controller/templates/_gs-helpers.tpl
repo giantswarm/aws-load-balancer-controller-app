@@ -32,11 +32,3 @@ Set Giant Swarm serviceAccountAnnotations.
 {{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "gs-{{ .Values.clusterID }}-ALBController-Role" .) }}
 {{- end }}
 {{- end -}}
-
-{{- define "resource.vpa.enabled" -}}
-{{- if and (.Capabilities.APIVersions.Has "autoscaling.k8s.io/v1") (.Values.verticalPodAutoscaler.enabled) }}true{{ else }}false{{ end }}
-{{- end -}}
-
-{{- define "resource.ingressClassParams.enabled" -}}
-{{- if and (.Capabilities.APIVersions.Has "elbv2.k8s.aws/v1beta1") (.Values.ingressClassParams.create) }}true{{ else }}false{{ end }}
-{{- end -}}
