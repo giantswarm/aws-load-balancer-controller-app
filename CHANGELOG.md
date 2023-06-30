@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add VPA
+
+### Fixed
+
+- Detect China region to fix IRSA role
+
 ## [1.3.1] - 2023-04-24
 
 ### Changed
