@@ -6,16 +6,16 @@
             "type": "object"
         },
         "awsApiEndpoints": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "awsMaxRetries": {
-            "type": ["null", "integer"]
+            "type": "null"
         },
         "backendSecurityGroup": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "clusterName": {
-            "type": ["null", "string"]
+            "type": "string"
         },
         "clusterSecretsPermissions": {
             "type": "object",
@@ -29,58 +29,58 @@
             "type": "boolean"
         },
         "defaultSSLPolicy": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "defaultTags": {
             "type": "object"
         },
         "disableIngressClassAnnotation": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "disableIngressGroupNameAnnotation": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "disableRestrictedSecurityGroupRules": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "dnsPolicy": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "enableBackendSecurityGroup": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "enableCertManager": {
             "type": "boolean"
         },
         "enableEndpointSlices": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "enablePodReadinessGateInject": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "enableShield": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "enableWaf": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "enableWafv2": {
-            "type": ["null", "boolean"]
+            "type": "null"
         },
         "env": {
-            "type": ["null", "object"]
+            "type": "null"
         },
         "externalManagedTags": {
             "type": "array"
         },
         "extraVolumeMounts": {
-            "type": ["null", "array"]
+            "type": "null"
         },
         "extraVolumes": {
-            "type": ["null", "array"]
+            "type": "null"
         },
         "fullnameOverride": {
-            "type": ["null", "string"]
+            "type": "string"
         },
         "hostNetwork": {
             "type": "boolean"
@@ -112,7 +112,7 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "spec": {
                     "type": "object"
@@ -120,7 +120,7 @@
             }
         },
         "ingressMaxConcurrentReconciles": {
-            "type": ["null", "integer"]
+            "type": "null"
         },
         "keepTLSSecret": {
             "type": "boolean"
@@ -160,7 +160,7 @@
             "type": "string"
         },
         "nameOverride": {
-            "type": ["null", "string"]
+            "type": "string"
         },
         "nodeSelector": {
             "type": "object"
@@ -169,10 +169,10 @@
             "type": "object",
             "properties": {
                 "matchExpressions": {
-                    "type": ["null", "array"]
+                    "type": "null"
                 },
                 "matchLabels": {
-                    "type": ["null", "object"]
+                    "type": "null"
                 }
             }
         },
@@ -210,7 +210,7 @@
             }
         },
         "region": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "replicaCount": {
             "type": "integer"
@@ -269,7 +269,7 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 }
             }
         },
@@ -277,7 +277,7 @@
             "type": "object"
         },
         "serviceMaxConcurrentReconciles": {
-            "type": ["null", "integer"]
+            "type": "null"
         },
         "serviceMonitor": {
             "type": "object",
@@ -294,13 +294,13 @@
             }
         },
         "syncPeriod": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "targetgroupbindingMaxConcurrentReconciles": {
-            "type": ["null", "integer"]
+            "type": "null"
         },
         "targetgroupbindingMaxExponentialBackoffDelay": {
-            "type": ["null", "integer"]
+            "type": "null"
         },
         "terminationGracePeriodSeconds": {
             "type": "integer"
@@ -311,26 +311,34 @@
         "updateStrategy": {
             "type": "object"
         },
+        "verticalPodAutoscaler": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
         "vpcId": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "watchNamespace": {
-            "type": ["null", "string"]
+            "type": "null"
         },
         "webhookBindPort": {
-            "type": ["null", "integer", "string"]
+            "type": "null"
         },
         "webhookTLS": {
             "type": "object",
             "properties": {
                 "caCert": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "cert": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 },
                 "key": {
-                    "type": ["null", "string"]
+                    "type": "null"
                 }
             }
         }
