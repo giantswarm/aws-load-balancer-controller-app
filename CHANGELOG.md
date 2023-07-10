@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Values.image.registry`
+
+### Changed
+
+- Tempalte for image reference in deployment.yaml
+
 ## [1.3.2] - 2023-06-30
 
 ### Changed
