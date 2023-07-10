@@ -7,7 +7,7 @@ home: https://github.com/giantswarm/aws-load-balancer-controller-app
 icon: https://s.giantswarm.io/app-icons/aws/1/dark.svg
 kubeVersion: ">=1.19.0-0"
 annotations:
-  application.giantswarm.io/team: cabbage
+  application.giantswarm.io/team: phoenix
 sources:
   - https://github.com/aws/eks-charts
 maintainers:
