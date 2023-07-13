@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Values.image.registry`
+
+### Changed
+
+- Template for image reference in deployment.yaml
+- `application.giantswarm.io/team` annotation to Phoenix
+
 ## [1.3.2] - 2023-06-30
 
 ### Changed

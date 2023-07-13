@@ -91,7 +91,10 @@
                 "pullPolicy": {
                     "type": "string"
                 },
-                "repository": {
+                "registry": {
+                    "type": "string"
+                },
+                "name": {
                     "type": "string"
                 },
                 "tag": {
