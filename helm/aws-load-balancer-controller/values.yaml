@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   registry: quay.io
-  repository: giantswarm/aws-alb-ingress-controller
+  name: giantswarm/aws-alb-ingress-controller
   tag: v2.4.1
   pullPolicy: IfNotPresent
 
