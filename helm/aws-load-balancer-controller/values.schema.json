@@ -340,7 +340,7 @@
         "global": {
             "type": "object",
             "propterties": {
-                "podSecurityStandarts": {
+                "podSecurityStandards": {
                     "type": "object",
                     "properties": {
                         "enforced": {
