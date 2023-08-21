@@ -283,5 +283,5 @@ verticalPodAutoscaler:
   enabled: true
 
 global:
-  podSecurityStandarts:
+  podSecurityStandards:
     enforced: false
