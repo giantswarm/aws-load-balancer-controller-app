@@ -1,3 +1,4 @@
+{{- if eq .Values.global.podSecurityStandarts.enforced "false" }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
@@ -27,4 +28,5 @@ spec:
     rule: MustRunAs
   runAsUser:
     rule: MustRunAsNonRoot
+{{- end }}
 

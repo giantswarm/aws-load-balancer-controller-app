@@ -281,3 +281,7 @@ clusterSecretsPermissions:
 
 verticalPodAutoscaler:
   enabled: true
+
+global:
+  podSecurityStandarts:
+    enforced: false

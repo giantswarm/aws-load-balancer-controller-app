@@ -336,6 +336,19 @@
                     "type": ["null", "string"]
                 }
             }
+        },
+        "global": {
+            "type": "object",
+            "propterties": {
+                "podSecurityStandarts": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
         }
     }
 }
