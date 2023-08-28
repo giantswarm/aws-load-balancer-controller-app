@@ -2,8 +2,8 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ .Values.name }}
-  namespace: {{ .Values.namespace }}
+  name: {{ include "aws-load-balancer-controller.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
   labels:
