@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- PSP name
+
+### Changed
+
+- Migration from monitoring labels to ServiceMonitor.
+
 ### Added
 
 - Added a new psp for CAPA support.
