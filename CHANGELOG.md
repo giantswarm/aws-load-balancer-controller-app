@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.4] - 2023-08-28
+
 ### Fixed
 
 - PSP name
@@ -104,7 +106,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.3...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.4...HEAD
+[1.3.4]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.0...v1.3.1
