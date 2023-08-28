@@ -3,10 +3,7 @@ kind: Service
 metadata:
   name: {{ template "aws-load-balancer-controller.namePrefix" . }}-metrics-service
   namespace: {{ .Release.Namespace }}
-  annotations:    
-    giantswarm.io/monitoring: "true"
-    giantswarm.io/monitoring-port: "{{ (split ":" .Values.metricsBindAddr)._1 | default 8080 }}"
-    giantswarm.io/monitoring-app-label: "aws-load-balancer-controller"
+  annotations:
   {{- with .Values.serviceAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}

@@ -264,7 +264,7 @@ objectSelector:
 
 serviceMonitor:
   # Specifies whether a service monitor should be created
-  enabled: false
+  enabled: true
   # Labels to add to the service account
   additionalLabels: {}
   # Prometheus scrape interval
