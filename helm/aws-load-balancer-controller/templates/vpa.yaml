@@ -12,6 +12,8 @@ spec:
     - containerName: {{ .Chart.Name }}
       controlledValues: RequestsAndLimits
       mode: Auto
+      minAllowed:
+        cpu: 50m
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
