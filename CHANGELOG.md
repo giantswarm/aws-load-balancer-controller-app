@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2023-09-26
+
 ## [1.4.0] - 2023-09-14
 
 ### Changed
@@ -112,7 +114,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.3.2...v1.3.3
