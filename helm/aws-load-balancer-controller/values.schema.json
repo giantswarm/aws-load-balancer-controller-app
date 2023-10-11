@@ -198,6 +198,17 @@
             "properties": {
                 "fsGroup": {
                     "type": "integer"
+                },
+                "runAsNonRoot": {
+                    "type": "boolean"
+                },
+                "seccompProfile": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
@@ -256,6 +267,14 @@
                 },
                 "runAsNonRoot": {
                     "type": "boolean"
+                },
+                "seccompProfile": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        }
+                    }
                 }
             }
         },
