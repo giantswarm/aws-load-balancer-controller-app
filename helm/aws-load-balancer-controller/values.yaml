@@ -7,7 +7,7 @@ replicaCount: 2
 image:
   registry: quay.io
   name: giantswarm/aws-alb-ingress-controller
-  tag: v2.4.1
+  tag: v2.6.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -28,6 +28,9 @@ serviceAccount:
   name:
   # Automount API credentials for a Service Account.
   automountServiceAccountToken: true
+  # List of image pull secrets to add to the Service Account.
+  imagePullSecrets:
+    # - name: docker
 
 rbac:
   # Specifies whether rbac resources should be created
@@ -37,7 +40,8 @@ podSecurityContext:
   fsGroup: 65534
   seccompProfile:
     type: RuntimeDefault
-  runAsNonRoot: true
+    runAsNonRoot: true
+
 
 securityContext:
   # capabilities:
@@ -72,7 +76,19 @@ nodeSelector: {}
 
 tolerations: []
 
+# affinity specifies a custom affinity for the controller pods
 affinity: {}
+
+# configureDefaultAffinity specifies whether to configure a default affinity for the controller pods to prevent
+# co-location on the same node. This will get ignored if you specify a custom affinity configuration.
+configureDefaultAffinity: true
+
+# topologySpreadConstraints is a stable feature of k8s v1.19 which provides the ability to
+# control how Pods are spread across your cluster among failure-domains such as regions, zones,
+# nodes, and other user-defined topology domains.
+#
+# more details here: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+topologySpreadConstraints: {}
 
 updateStrategy: {}
   # type: RollingUpdate
@@ -83,12 +99,26 @@ updateStrategy: {}
 # serviceAnnotations contains annotations to be added to the provisioned webhook service resource
 serviceAnnotations: {}
 
+# deploymentAnnotations contains annotations for the controller deployment
+deploymentAnnotations: {}
+
 podAnnotations: {}
 
 podLabels: {}
 
+# additionalLabels -- Labels to add to each object of the chart.
+additionalLabels: {}
+
 # Enable cert-manager
 enableCertManager: false
+
+# The name of the Kubernetes cluster. A non-empty value is required
+clusterName:
+
+# cluster contains configurations specific to the kubernetes cluster
+cluster:
+    # Cluster DNS domain (required for requesting TLS certificates)
+    dnsDomain: cluster.local
 
 # The ingress class this controller will satisfy. If not specified, controller will match all
 # ingresses without ingress class annotation and ingresses of type alb
@@ -100,15 +130,23 @@ ingressClassParams:
   # The name of ingressClassParams resource will be referred in ingressClass
   name:
   spec: {}
-    # You always can set specifications in `helm install` command through `--set` or `--set-string`
-    # If you do want to specify specifications in values.yaml, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'spec:'.
+    # Due to dependency issue, the validation webhook ignores this particular ingressClassParams resource.
+    # We recommend creating ingressClassParams resources separately after installing this chart and the
+    # controller is functional.
+    #
+    # You can set the specifications in the `helm install` command through `--set` or `--set-string`
+    # If you do want to specify in the values.yaml, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'spec:'
+    #
     # namespaceSelector:
     #   matchLabels:
     # group:
     # scheme:
     # ipAddressType:
     # tags:
+    # loadBalancerAttributes:
+    # - key:
+    #   value:
 
 # To use IngressClass resource instead of annotation, before you need to install the IngressClass resource pointing to controller.
 # If specified as true, the IngressClass resource will be created.
@@ -123,8 +161,21 @@ vpcId:
 # Custom AWS API Endpoints (serviceID1=URL1,serviceID2=URL2)
 awsApiEndpoints:
 
+# awsApiThrottle specifies custom AWS API throttle settings (serviceID1:operationRegex1=rate:burst,serviceID2:operationRegex2=rate:burst)
+# example: --set awsApiThrottle="{Elastic Load Balancing v2:RegisterTargets|DeregisterTargets=4:20,Elastic Load Balancing v2:.*=10:40}"
+awsApiThrottle:
+
 # Maximum retries for AWS APIs (default 10)
 awsMaxRetries:
+
+# Default target type. Used as the default value of the "alb.ingress.kubernetes.io/target-type" and
+# "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type" annotations.
+# Possible values are "ip" and "instance"
+# The value "ip" should be used for ENI-based CNIs, such as the Amazon VPC CNI,
+# Calico with encapsulation disabled, or Cilium with masquerading disabled.
+# The value "instance" should be used for overlay-based CNIs, such as Calico in VXLAN or IPIP mode or
+# Cilium with masquerading enabled.
+defaultTargetType: instance
 
 # If enabled, targetHealth readiness gate will get injected to the pod spec for the matching endpoint pods (default true)
 enablePodReadinessGateInject:
@@ -156,6 +207,13 @@ webhookTLS:
   cert:
   key:
 
+# array of namespace selectors for the webhook
+webhookNamespaceSelectors:
+# - key: elbv2.k8s.aws/pod-readiness-gate-inject
+#   operator: In
+#   values:
+#   - enabled
+
 # keepTLSSecret specifies whether to reuse existing TLS secret for chart upgrade
 keepTLSSecret: true
 
@@ -168,7 +226,7 @@ targetgroupbindingMaxConcurrentReconciles:
 # Maximum duration of exponential backoff for targetGroupBinding reconcile failures
 targetgroupbindingMaxExponentialBackoffDelay:
 
-# Period at which the controller forces the repopulation of its local object stores. (default 1h0m0s)
+# Period at which the controller forces the repopulation of its local object stores. (default 10h0m0s)
 syncPeriod:
 
 # Namespace the controller watches for updates to Kubernetes objects, If empty, all namespaces are watched.
@@ -179,6 +237,12 @@ disableIngressClassAnnotation:
 
 # disableIngressGroupNameAnnotation disables the usage of alb.ingress.kubernetes.io/group.name annotation, false by default
 disableIngressGroupNameAnnotation:
+
+# tolerateNonExistentBackendService permits rules which specify backend services that don't exist, true by default (When enabled, it will return 503 error if backend service not exist)
+tolerateNonExistentBackendService:
+
+# tolerateNonExistentBackendAction permits rules which specify backend actions that don't exist, true by default (When enabled, it will return 503 error if backend action not exist)
+tolerateNonExistentBackendAction:
 
 # defaultSSLPolicy specifies the default SSL policy to use for TLS/HTTPS listeners
 defaultSSLPolicy:
@@ -199,6 +263,9 @@ livenessProbe:
 env:
   # ENV_1: ""
   # ENV_2: ""
+
+# Use Environment variables credentials from Secret (aws-secret) for aws-load-balancer-controller pod similarly as The EBS CSI Driver does.
+# envSecretName: aws-secret
 
 # Specifies if aws-load-balancer-controller should be started in hostNetwork mode.
 #
@@ -257,6 +324,20 @@ backendSecurityGroup:
 # disableRestrictedSecurityGroupRules specifies whether to disable creating port-range restricted security group rules for traffic
 disableRestrictedSecurityGroupRules:
 
+# controllerConfig specifies controller configuration
+controllerConfig:
+  # featureGates set of key: value pairs that describe AWS load balance controller features
+  featureGates: {}
+  # ListenerRulesTagging: true
+  # WeightedTargetGroups: true
+  # ServiceTypeLoadBalancerOnly: false
+  # EndpointsFailOpen: true
+  # EnableServiceController: true
+  # EnableIPTargetType: true
+  # SubnetsClusterTagCheck: true
+  # NLBHealthCheckAdvancedConfig: true
+  # ALBSingleSubnet: false
+
 # objectSelector for webhook
 objectSelector:
   matchExpressions:
@@ -274,6 +355,8 @@ serviceMonitor:
   additionalLabels: {}
   # Prometheus scrape interval
   interval: 1m
+  # Namespace to create the service monitor in
+  namespace:
 
 # clusterSecretsPermissions lets you configure RBAC permissions for secret resources
 # Access to secrets resource is required only if you use the OIDC feature, and instead of
@@ -287,6 +370,13 @@ clusterSecretsPermissions:
 verticalPodAutoscaler:
   enabled: true
 
+# ingressClassConfig contains configurations specific to the ingress class
+ingressClassConfig:
+  default: false
+
 global:
   podSecurityStandards:
     enforced: false
+
+# enableServiceMutatorWebhook allows you enable the webhook which makes this controller the default for all new services of type LoadBalancer
+enableServiceMutatorWebhook: true

@@ -1,0 +1,15 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: add oliviassss as approver (#3534)
+      sha: 0b82ebbcc0b66d168e9ef74cd94b41b7e3e9a8ac
+      tags:
+      - v2.6.0-108-g0b82ebbcc
+    path: aws-load-balancer-controller
+  path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/aws-load-balancer-controller
+kind: LockConfig

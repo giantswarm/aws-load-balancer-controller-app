@@ -1,0 +1,16 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+  - path: vendor
+    contents:
+      - path: aws-load-balancer-controller
+        git:
+          url: https://github.com/kubernetes-sigs/aws-load-balancer-controller
+          ref: "main"
+        includePaths:
+          - helm/aws-load-balancer-controller/**/*
+  - path: helm/aws-load-balancer-controller
+    contents:
+      - path: .
+        directory:
+          path: vendor/aws-load-balancer-controller/helm/aws-load-balancer-controller
