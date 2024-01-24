@@ -14,10 +14,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# The name of the Kubernetes cluster. A non-empty value is required
-# For GS clusters the clusterName is set automatically.
-clusterName: ""
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
@@ -113,6 +109,7 @@ additionalLabels: {}
 enableCertManager: false
 
 # The name of the Kubernetes cluster. A non-empty value is required
+# For GS clusters the clusterName is set automatically.
 clusterName:
 
 # cluster contains configurations specific to the kubernetes cluster
