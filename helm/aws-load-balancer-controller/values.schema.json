@@ -9,16 +9,28 @@
             "type": "object"
         },
         "awsApiEndpoints": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "awsApiThrottle": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "awsMaxRetries": {
-            "type": ["null", "integer"]
+            "type": [
+                "null",
+                "integer"
+            ]
         },
         "backendSecurityGroup": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "cluster": {
             "type": "object",
@@ -29,7 +41,10 @@
             }
         },
         "clusterName": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "clusterSecretsPermissions": {
             "type": "object",
@@ -54,7 +69,10 @@
             "type": "boolean"
         },
         "defaultSSLPolicy": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "defaultTags": {
             "type": "object"
@@ -66,52 +84,91 @@
             "type": "object"
         },
         "disableIngressClassAnnotation": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "disableIngressGroupNameAnnotation": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "disableRestrictedSecurityGroupRules": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "dnsPolicy": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "enableBackendSecurityGroup": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "enableCertManager": {
             "type": "boolean"
         },
         "enableEndpointSlices": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "enablePodReadinessGateInject": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "enableServiceMutatorWebhook": {
             "type": "boolean"
         },
         "enableShield": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "enableWaf": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "enableWafv2": {
-            "type": ["null", "boolean"]
+            "type": [
+                "null",
+                "boolean"
+            ]
         },
         "env": {
-            "type": ["null", "object"]
+            "type": [
+                "null",
+                "object"
+            ]
         },
         "externalManagedTags": {
             "type": "array"
         },
         "extraVolumeMounts": {
-            "type": ["null", "array"]
+            "type": [
+                "null",
+                "array"
+            ]
         },
         "extraVolumes": {
-            "type": ["null", "array"]
+            "type": [
+                "null",
+                "array"
+            ]
         },
         "fullnameOverride": {
             "type": "string"
@@ -170,7 +227,10 @@
                     "type": "boolean"
                 },
                 "name": {
-                    "type": ["null", "string"]
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 },
                 "spec": {
                     "type": "object"
@@ -178,7 +238,10 @@
             }
         },
         "ingressMaxConcurrentReconciles": {
-            "type": ["null", "integer"]
+            "type": [
+                "null",
+                "integer"
+            ]
         },
         "keepTLSSecret": {
             "type": "boolean"
@@ -212,13 +275,19 @@
             }
         },
         "logLevel": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "metricsBindAddr": {
             "type": "string"
         },
         "nameOverride": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "nodeSelector": {
             "type": "object"
@@ -227,10 +296,16 @@
             "type": "object",
             "properties": {
                 "matchExpressions": {
-                    "type": ["null", "array"]
+                    "type": [
+                        "null",
+                        "array"
+                    ]
                 },
                 "matchLabels": {
-                    "type": ["null", "object"]
+                    "type": [
+                        "null",
+                        "object"
+                    ]
                 }
             }
         },
@@ -257,11 +332,11 @@
                 "seccompProfile": {
                     "type": "object",
                     "properties": {
-                        "runAsNonRoot": {
-                            "type": "boolean"
-                        },
                         "type": {
                             "type": "string"
+                        },
+                        "runAsNonRoot": {
+                            "type": "boolean"
                         }
                     }
                 }
@@ -279,7 +354,10 @@
             }
         },
         "region": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "replicaCount": {
             "type": "integer"
@@ -346,10 +424,16 @@
                     "type": "boolean"
                 },
                 "imagePullSecrets": {
-                    "type": ["null", "string"]
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 },
                 "name": {
-                    "type": ["null", "string"]
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 }
             }
         },
@@ -357,7 +441,10 @@
             "type": "object"
         },
         "serviceMaxConcurrentReconciles": {
-            "type": ["null", "integer"]
+            "type": [
+                "null",
+                "integer"
+            ]
         },
         "serviceMonitor": {
             "type": "object",
@@ -372,27 +459,45 @@
                     "type": "string"
                 },
                 "namespace": {
-                    "type": ["null", "string"]
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 }
             }
         },
         "syncPeriod": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "targetgroupbindingMaxConcurrentReconciles": {
-            "type": ["null", "integer"]
+            "type": [
+                "null",
+                "integer"
+            ]
         },
         "targetgroupbindingMaxExponentialBackoffDelay": {
-            "type": ["null", "integer"]
+            "type": [
+                "null",
+                "integer"
+            ]
         },
         "terminationGracePeriodSeconds": {
             "type": "integer"
         },
         "tolerateNonExistentBackendAction": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "tolerateNonExistentBackendService": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "tolerations": {
             "type": "array"
@@ -412,28 +517,51 @@
             }
         },
         "vpcId": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "watchNamespace": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "webhookBindPort": {
-            "type": ["null", "integer", "string"]
+            "type": [
+                "null",
+                "integer",
+                "string"
+            ]
         },
         "webhookNamespaceSelectors": {
-            "type": ["null", "string"]
+            "type": [
+                "null",
+                "string"
+            ]
         },
         "webhookTLS": {
             "type": "object",
             "properties": {
                 "caCert": {
-                    "type": ["null", "string"]
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 },
                 "cert": {
-                    "type": ["null", "string"]
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 },
                 "key": {
-                    "type": ["null", "string"] }
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
             }
         }
     }
