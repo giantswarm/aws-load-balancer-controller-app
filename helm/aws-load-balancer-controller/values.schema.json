@@ -2,10 +2,16 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
+        "additionalLabels": {
+            "type": "object"
+        },
         "affinity": {
             "type": "object"
         },
         "awsApiEndpoints": {
+            "type": ["null", "string"]
+        },
+        "awsApiThrottle": {
             "type": ["null", "string"]
         },
         "awsMaxRetries": {
@@ -13,6 +19,14 @@
         },
         "backendSecurityGroup": {
             "type": ["null", "string"]
+        },
+        "cluster": {
+            "type": "object",
+            "properties": {
+                "dnsDomain": {
+                    "type": "string"
+                }
+            }
         },
         "clusterName": {
             "type": ["null", "string"]
@@ -25,6 +39,17 @@
                 }
             }
         },
+        "configureDefaultAffinity": {
+            "type": "boolean"
+        },
+        "controllerConfig": {
+            "type": "object",
+            "properties": {
+                "featureGates": {
+                    "type": "object"
+                }
+            }
+        },
         "createIngressClassResource": {
             "type": "boolean"
         },
@@ -32,6 +57,12 @@
             "type": ["null", "string"]
         },
         "defaultTags": {
+            "type": "object"
+        },
+        "defaultTargetType": {
+            "type": "string"
+        },
+        "deploymentAnnotations": {
             "type": "object"
         },
         "disableIngressClassAnnotation": {
@@ -58,6 +89,9 @@
         "enablePodReadinessGateInject": {
             "type": ["null", "boolean"]
         },
+        "enableServiceMutatorWebhook": {
+            "type": "boolean"
+        },
         "enableShield": {
             "type": ["null", "boolean"]
         },
@@ -80,7 +114,20 @@
             "type": ["null", "array"]
         },
         "fullnameOverride": {
-            "type": ["null", "string"]
+            "type": "string"
+        },
+        "global": {
+            "type": "object",
+            "properties": {
+                "podSecurityStandards": {
+                    "type": "object",
+                    "properties": {
+                        "enforced": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
         },
         "hostNetwork": {
             "type": "boolean"
@@ -88,13 +135,13 @@
         "image": {
             "type": "object",
             "properties": {
+                "name": {
+                    "type": "string"
+                },
                 "pullPolicy": {
                     "type": "string"
                 },
                 "registry": {
-                    "type": "string"
-                },
-                "name": {
                     "type": "string"
                 },
                 "tag": {
@@ -107,6 +154,14 @@
         },
         "ingressClass": {
             "type": "string"
+        },
+        "ingressClassConfig": {
+            "type": "object",
+            "properties": {
+                "default": {
+                    "type": "boolean"
+                }
+            }
         },
         "ingressClassParams": {
             "type": "object",
@@ -157,7 +212,7 @@
             }
         },
         "logLevel": {
-            "type": "null"
+            "type": ["null", "string"]
         },
         "metricsBindAddr": {
             "type": "string"
@@ -199,12 +254,12 @@
                 "fsGroup": {
                     "type": "integer"
                 },
-                "runAsNonRoot": {
-                    "type": "boolean"
-                },
                 "seccompProfile": {
                     "type": "object",
                     "properties": {
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        },
                         "type": {
                             "type": "string"
                         }
@@ -290,6 +345,9 @@
                 "create": {
                     "type": "boolean"
                 },
+                "imagePullSecrets": {
+                    "type": ["null", "string"]
+                },
                 "name": {
                     "type": ["null", "string"]
                 }
@@ -312,6 +370,9 @@
                 },
                 "interval": {
                     "type": "string"
+                },
+                "namespace": {
+                    "type": ["null", "string"]
                 }
             }
         },
@@ -327,11 +388,28 @@
         "terminationGracePeriodSeconds": {
             "type": "integer"
         },
+        "tolerateNonExistentBackendAction": {
+            "type": ["null", "string"]
+        },
+        "tolerateNonExistentBackendService": {
+            "type": ["null", "string"]
+        },
         "tolerations": {
             "type": "array"
         },
+        "topologySpreadConstraints": {
+            "type": "object"
+        },
         "updateStrategy": {
             "type": "object"
+        },
+        "verticalPodAutoscaler": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
         },
         "vpcId": {
             "type": ["null", "string"]
@@ -341,6 +419,9 @@
         },
         "webhookBindPort": {
             "type": ["null", "integer", "string"]
+        },
+        "webhookNamespaceSelectors": {
+            "type": ["null", "string"]
         },
         "webhookTLS": {
             "type": "object",
@@ -352,21 +433,7 @@
                     "type": ["null", "string"]
                 },
                 "key": {
-                    "type": ["null", "string"]
-                }
-            }
-        },
-        "global": {
-            "type": "object",
-            "propterties": {
-                "podSecurityStandards": {
-                    "type": "object",
-                    "properties": {
-                        "enforced": {
-                            "type": "boolean"
-                        }
-                    }
-                }
+                    "type": ["null", "string"] }
             }
         }
     }
