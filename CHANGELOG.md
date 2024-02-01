@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2024-02-01
+
+### Changed
+
+- Bump upstream chart version to v1.6.1.
+
 ## [1.5.1] - 2024-02-01
 
 ### Fixed
@@ -134,7 +140,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.5.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.5.1...v1.6.0
 [1.5.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.4.3...v1.5.0
 [1.4.3]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.4.2...v1.4.3
