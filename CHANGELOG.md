@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.6.0] - 2024-02-01
 
+### Changed
+
+- Bump upstream chart version to v1.6.1.
+
 ## [1.5.1] - 2024-02-01
 
 ### Fixed
