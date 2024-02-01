@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Bump upstream chart version to v1.6.1.
+- Bump upstream chart version to v2.6.1.
 
 ## [1.5.1] - 2024-02-01
 
