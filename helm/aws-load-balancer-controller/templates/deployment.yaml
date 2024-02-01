@@ -61,7 +61,11 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         args:
+        {{- if .Values.clusterName }}
         - --cluster-name={{ required "Chart cannot be installed without a valid clusterName!" .Values.clusterName }}
+        {{ else}}
+        - --cluster-name={{ .Values.clusterID }}
+        {{- end }}
         {{- if .Values.ingressClass }}
         - --ingress-class={{ .Values.ingressClass }}
         {{- end }}
