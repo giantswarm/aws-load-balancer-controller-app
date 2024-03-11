@@ -8,8 +8,15 @@ metadata:
 spec:
   egress:
   - {}
+  ingress:
+  - ports:
+      - port: {{ .Values.webhookBindPort | default 9443 }}
+        protocol: TCP
+      - port: {{ (split ":" .Values.metricsBindAddr)._1 | default 8080 }}
+        protocol: TCP
   podSelector:
     matchLabels:
       {{- include "aws-load-balancer-controller.selectorLabels" . | nindent 6 }}
   policyTypes:
   - Egress
+  - Ingress
