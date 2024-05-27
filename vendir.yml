@@ -5,7 +5,7 @@ directories:
     contents:
       - path: aws-load-balancer-controller
         git:
-          url: https://github.com/kubernetes-sigs/aws-load-balancer-controller
+          url: https://github.com/giantswarm/aws-load-balancer-controller-upstream
           ref: "main"
         includePaths:
           - helm/aws-load-balancer-controller/**/*

@@ -38,7 +38,6 @@ podSecurityContext:
     type: RuntimeDefault
     runAsNonRoot: true
 
-
 securityContext:
   # capabilities:
   #   drop:
