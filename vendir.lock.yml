@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: add oliviassss as approver (#3534)
-      sha: 0b82ebbcc0b66d168e9ef74cd94b41b7e3e9a8ac
+      commitTitle: add app version back
+      sha: 99b37c90d6df0111741a3ebb5a2d325a874888fb
       tags:
-      - v2.6.0-108-g0b82ebbcc
+      - v2.4.1-333-g99b37c90d
     path: aws-load-balancer-controller
   path: vendor
 - contents:
