@@ -29,4 +29,3 @@ spec:
   runAsUser:
     rule: MustRunAsNonRoot
 {{- end }}
-
