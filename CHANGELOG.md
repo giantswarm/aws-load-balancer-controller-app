@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add default tag to enable loadbalancer cleanup
+
 ## [1.6.1-gs.1] - 2024-05-30
 
 ## [1.6.1] - 2024-03-12
