@@ -162,7 +162,7 @@ spec:
         {{- if ne .Values.defaultTargetType "instance" }}
         - --default-target-type={{ .Values.defaultTargetType }}
         {{- end }}
-        - --default-tags=kubernetes.io/cluster/{{.Values.clusterID}}=owned
+        - --default-tags=kubernetes.io/cluster/{{.Values.clusterID}}=owned,kubernetes.io/service-name=aws-alb-controller
         {{- if or .Values.env .Values.envSecretName }}
         env:
         {{- if .Values.env}}
