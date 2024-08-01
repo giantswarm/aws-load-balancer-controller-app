@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+
+- Add missing tag for ALB cleanup
+
 ## [1.6.1-gs2] - 2024-07-31
 
 ### Changed
