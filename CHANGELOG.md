@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1-gs2.1] - 2024-08-01
+
 ## Fixed
 
 - Add missing tag for ALB cleanup
@@ -158,7 +160,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2.1...HEAD
+[1.6.1-gs2.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2...v1.6.1-gs2.1
 [1.6.1-gs2]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs.1...v1.6.1-gs2
 [1.6.1-gs.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1...v1.6.1-gs.1
 [1.6.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.0...v1.6.1
