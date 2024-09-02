@@ -11,20 +11,20 @@ metadata:
 spec:
   allowPrivilegeEscalation: false
   volumes:
-  - emptyDir
-  - secret
-  - projected
+    - emptyDir
+    - secret
+    - projected
   fsGroup:
     ranges:
-    - max: 65535
-      min: 1
+      - max: 65535
+        min: 1
     rule: MustRunAs
   seLinux:
     rule: RunAsAny
   supplementalGroups:
     ranges:
-    - max: 65535
-      min: 1
+      - max: 65535
+        min: 1
     rule: MustRunAs
   runAsUser:
     rule: MustRunAsNonRoot

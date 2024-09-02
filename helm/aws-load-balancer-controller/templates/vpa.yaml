@@ -9,11 +9,11 @@ metadata:
 spec:
   resourcePolicy:
     containerPolicies:
-    - containerName: {{ .Chart.Name }}
-      controlledValues: RequestsAndLimits
-      mode: Auto
-      minAllowed:
-        cpu: 50m
+      - containerName: {{ .Chart.Name }}
+        controlledValues: RequestsAndLimits
+        mode: Auto
+        minAllowed:
+          cpu: 50m
   targetRef:
     apiVersion: apps/v1
     kind: Deployment

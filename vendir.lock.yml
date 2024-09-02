@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: add app version back
-      sha: 99b37c90d6df0111741a3ebb5a2d325a874888fb
+      commitTitle: Make linter happy
+      sha: 5bc162c094ec4485752f14789cb09520fcf9de22
       tags:
-      - v2.4.1-333-g99b37c90d
+      - v2.8.1-16-g5bc162c09
     path: aws-load-balancer-controller
   path: vendor
 - contents:
