@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Kyverno PolicyExceptions to v2 and fallback to v2beta1.
 
+### Removed
+
+- Remove dependabot configuration, as we want to use Renovate.
+
 ## [1.6.1-gs2.1] - 2024-08-01
 
 ## Fixed
