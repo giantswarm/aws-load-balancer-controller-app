@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.1-gs.3] - 2024-09-11
+
 ### Changed
 
 - Update Kyverno PolicyExceptions to v2 and fallback to v2beta1.
@@ -168,7 +170,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs.3...HEAD
+[1.6.1-gs.3]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2.1...v1.6.1-gs.3
 [1.6.1-gs2.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2...v1.6.1-gs2.1
 [1.6.1-gs2]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs.1...v1.6.1-gs2
 [1.6.1-gs.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1...v1.6.1-gs.1
