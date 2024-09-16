@@ -7,9 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2024-09-11
+
+### Changed
+
+- Change versioning system to our own app version.
+
+## [1.6.1-gs.3] - 2024-09-11
+
 ### Changed
 
 - Update Kyverno PolicyExceptions to v2 and fallback to v2beta1.
+
+### Removed
+
+- Remove dependabot configuration, as we want to use Renovate.
 
 ## [1.6.1-gs2.1] - 2024-08-01
 
@@ -164,7 +176,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs.3...v2.0.0
+[1.6.1-gs.3]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2.1...v1.6.1-gs.3
 [1.6.1-gs2.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs2...v1.6.1-gs2.1
 [1.6.1-gs2]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1-gs.1...v1.6.1-gs2
 [1.6.1-gs.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v1.6.1...v1.6.1-gs.1
