@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: add app version back
-      sha: 99b37c90d6df0111741a3ebb5a2d325a874888fb
+      commitTitle: 'Merge pull request #5 from giantswarm/upgrade-to-2-8-3...'
+      sha: 90a7390b68b2bff70ae378866331f315bcc37968
       tags:
-      - v2.4.1-333-g99b37c90d
+      - v2.8.3-17-g90a7390b6
     path: aws-load-balancer-controller
   path: vendor
 - contents:

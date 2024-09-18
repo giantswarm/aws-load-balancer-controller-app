@@ -1,9 +1,6 @@
-- **This repository allows merge commits, if you're creating a Release, make sure to select 'Squash and merge'**
-- **When merging subtree updates, it is important to select 'Create a merge commit' when merging.**
-
 <!--
-@giantswarm/team-cabbage will be automatically requested for review once
-this PR has been submitted.
+The contents of this repository are generated from our fork here https://github.com/giantswarm/aws-load-balancer-controller-upstream
+If you need to do changes to this chart, please apply them in our fork and regenerate the contents of this repository using `vendir`.
 -->
 
 This PR..
