@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Make linter happy
-      sha: 5bc162c094ec4485752f14789cb09520fcf9de22
+      commitTitle: 'Merge pull request #5 from giantswarm/upgrade-to-2-8-3...'
+      sha: 90a7390b68b2bff70ae378866331f315bcc37968
       tags:
-      - v2.8.1-16-g5bc162c09
+      - v2.8.3-17-g90a7390b6
     path: aws-load-balancer-controller
   path: vendor
 - contents:

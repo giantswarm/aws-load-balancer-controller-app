@@ -32,7 +32,7 @@ update-chart: check-env ## Sync chart with upstream repo.
 	$(MAKE) update-deps
 
 update-deps: check-env $(DEPS) ## Update Helm dependencies.
-	cd helm/$(APPLICATION) && helm dependency update
+	cd $(APPLICATION) && helm dependency update
 
 $(DEPS): check-env ## Update main Chart.yaml with new local dep versions.
 	dep_name=$(shell basename $@) && \
