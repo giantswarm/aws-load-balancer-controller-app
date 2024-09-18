@@ -1,0 +1,5 @@
+controller:
+  service:
+    loadBalancerClass: service.k8s.aws/nlb
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
