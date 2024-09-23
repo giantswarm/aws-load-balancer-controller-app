@@ -29,7 +29,7 @@ func TestBasic(t *testing.T) {
 			var service *v1.Service
 			It("should manage LB creation", func() {
 				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
-				Expect(err).ToNot(HaveOccurred())
+				Expect(err).Should(Succeed())
 
 				Eventually(func() error {
 					service, err = createServiceLoadBalancer(wcClient, "default", "test-aws-lb-controller")
@@ -37,14 +37,14 @@ func TestBasic(t *testing.T) {
 				}).
 					WithTimeout(2 * time.Minute).
 					WithPolling(5 * time.Second).
-					Should(BeNil())
+					Should(Succeed())
 
 				Eventually(func() (bool, error) {
 					return serviceHasLBHostnameSetInStatus(wcClient, service.Namespace, service.Name)
 				}).
 					WithTimeout(6 * time.Minute).
 					WithPolling(5 * time.Second).
-					Should(BeTrue())
+					Should(BeTrueBecause("We expect the LoadBalancer hostname to be set in the Service status"))
 
 				// We make sure the `Service` has the finalizer added by the aws-load-balancer-controller
 				Eventually(func() (bool, error) {
@@ -52,7 +52,7 @@ func TestBasic(t *testing.T) {
 				}).
 					WithTimeout(3 * time.Minute).
 					WithPolling(5 * time.Second).
-					Should(BeTrue())
+					Should(BeTrueBecause("We expect the finalizer to be added to the Service by the aws-load-balancer-controller"))
 			})
 		}).
 		Run(t, "Basic Test")
