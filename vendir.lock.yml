@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'Merge pull request #5 from giantswarm/upgrade-to-2-8-3...'
-      sha: 90a7390b68b2bff70ae378866331f315bcc37968
+      commitTitle: Get rid of the legacy in-house slo framework label...
+      sha: 58af91aeb5189e20473a2b1ab5d9fd0dbe5eecc3
       tags:
-      - v2.8.3-17-g90a7390b6
+      - v2.8.3-18-g58af91aeb
     path: aws-load-balancer-controller
   path: vendor
 - contents:
