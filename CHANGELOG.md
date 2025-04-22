@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Get rid of legacy in-house slo framework.
 
+### Changed
+
+- Set home URL in chart metadata.
+
 ## [2.1.0] - 2024-09-23
 
 ### Changed
