@@ -14,7 +14,6 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/giantswarm/apptest-framework/pkg/config"
 	"github.com/giantswarm/apptest-framework/pkg/suite"
 )
 
@@ -23,7 +22,7 @@ const (
 )
 
 func TestBasic(t *testing.T) {
-	suite.New(config.MustLoad("../../config.yaml")).
+	suite.New().
 		// The namespace to install the app into within the workload cluster
 		WithInstallNamespace("kube-system").
 		// If this is an upgrade test or not.
