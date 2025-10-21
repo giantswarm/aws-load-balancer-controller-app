@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/giantswarm/apptest-framework/pkg/state"
+	"github.com/giantswarm/apptest-framework/v2/pkg/state"
 	"github.com/giantswarm/clustertest/pkg/logger"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -14,7 +14,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/giantswarm/apptest-framework/pkg/suite"
+	"github.com/giantswarm/apptest-framework/v2/pkg/suite"
 )
 
 const (
