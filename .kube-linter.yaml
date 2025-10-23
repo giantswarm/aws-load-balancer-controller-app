@@ -1,0 +1,5 @@
+checks:
+  exclude:
+  - "pdb-unhealthy-pod-eviction-policy"
+  - "liveness-port"
+  - "readiness-port"
