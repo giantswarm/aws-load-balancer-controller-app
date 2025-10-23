@@ -8,7 +8,7 @@ workflows:
     - architect/push-to-app-catalog:
         context: architect
         executor: app-build-suite
-        name: package and push aws-load-balancer-controller chart
+        name: push-to-giantswarm-catalog
         app_catalog: giantswarm-catalog
         app_catalog_test: giantswarm-test-catalog
         chart: aws-load-balancer-controller
@@ -24,7 +24,7 @@ workflows:
     - architect/push-to-app-catalog:
         context: architect
         executor: app-build-suite
-        name: package and push aws-load-balancer-controller chart
+        name: push-to-control-plane-catalog
         app_catalog: control-plane-catalog
         app_catalog_test: control-plane-test-catalog
         chart: aws-load-balancer-controller
