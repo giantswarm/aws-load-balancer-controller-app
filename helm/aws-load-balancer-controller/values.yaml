@@ -338,6 +338,7 @@ defaultTags: {}
 # podDisruptionBudget specifies the disruption budget for the controller pods.
 # Disruption budget will be configured only when the replicaCount is greater than 1
 podDisruptionBudget:
+  unhealthyPodEvictionPolicy: AlwaysAllow
   minAvailable: 1
 #  maxUnavailable: 1
 

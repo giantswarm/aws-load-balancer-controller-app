@@ -2,10 +2,11 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Get rid of the legacy in-house slo framework label...
-      sha: 58af91aeb5189e20473a2b1ab5d9fd0dbe5eecc3
+      commitTitle: Add unhealthyPodEvictionPolicy and define status port in deployment
+        (#10)...
+      sha: 3b2773cf1bf351e17c2580131cec6f5f77feaa25
       tags:
-      - v2.8.3-18-g58af91aeb
+      - v2.8.3-19-g3b2773cf1
     path: aws-load-balancer-controller
   path: vendor
 - contents:
