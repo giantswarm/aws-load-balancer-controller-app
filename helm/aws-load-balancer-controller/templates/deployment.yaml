@@ -226,6 +226,9 @@ spec:
         - name: metrics-server
           containerPort: {{ (split ":" .Values.metricsBindAddr)._1 | default 8080 }}
           protocol: TCP
+        - name: status
+          containerPort: 61779
+          protocol: TCP
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
         {{- with .Values.livenessProbe }}
