@@ -42,7 +42,7 @@ workflows:
         context: architect
         app_catalog: control-plane-catalog
         app_name: aws-load-balancer-controller
-        app_namespace: giantswarm
+        app_namespace: aws-load-balancer-controller
         app_collection_repo: capa-app-collection
         requires:
           - push-to-control-plane-catalog
