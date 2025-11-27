@@ -11,7 +11,7 @@ spec:
   forProvider:
     tags:
       giantswarm.io/cluster: {{ .Values.clusterID }}
-      giantswarm.io/managed-by: {{ include "aws-load-balancer-controller.fullname" . }}
+      giantswarm.io/managed-by: {{ include "aws-load-balancer-controller-bundle.fullname" . }}
       sigs.k8s.io/cluster-api-provider-aws/cluster/{{ .Values.clusterID }}: owned
     assumeRolePolicy: |
       {
