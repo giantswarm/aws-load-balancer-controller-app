@@ -2,106 +2,62 @@
 
 # AWS Load Balancer Controller chart
 
-AWS Load Balancer controller Helm chart for Giant Swarm clusters
+Giant Swarm offers an `aws-load-balancer-controller-bundle` Managed App which can be installed in tenant clusters.
+Here we define the `aws-load-balancer-controller-bundle` and `aws-load-balancer-controller` charts with their templates and default configuration.
+
+- [AWS Load Balancer Controller chart](#aws-load-balancer-controller-chart)
+  - [Introduction](#introduction)
+  - [Architecture](#architecture)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+  - [Upgrade from v2.x.x to v3.x.x](#upgrade-from-v2xx-to-v3xx)
 
 ## Introduction
 [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/) controller manages the following AWS resources
 - Application Load Balancers to satisfy Kubernetes ingress objects
 - Network Load Balancers to satisfy Kubernetes service objects of type LoadBalancer with appropriate annotations
 
-## Index
-- [Prerequisites](#prerequisites)
-- [Installing](#installing)
-- [Configuring](#configuring)
-  - [values.yaml](#valuesyaml)
-- [Release Process](#release-process)
-- [Contributing & Reporting Bugs](#contributing--reporting-bugs)
-- [Credit](#credit)
+## Architecture
+
+This repository contains two Helm charts:
+
+- `helm/aws-load-balancer-controller-bundle/`: Main chart installed on the management cluster, contains the workload cluster chart and the required AWS IAM role.
+- `helm/aws-load-balancer-controller/`: Workload cluster chart that contains the actual AWS Load Balancer Controller setup.
+
+Users only need to install the bundle chart on the management cluster, which in turn will deploy the workload cluster chart.
 
 ## Prerequisites
-- kiam-app installed
 
-The controller runs on the worker nodes, so it needs access to the AWS ALB/NLB resources via IAM permissions. The
-IAM permissions can be setup through the kiam-app.
-
-This step is only required on clusters managed by **Cluster API**. Vintage clusters do this automatically.
-
-Download the recommended IAM policy for the AWS Load Balancer Controller
-```bash
-curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
-```
-
-For a thorough explanation on how to create the IAM policy and role please refer to the [upstream charts README.md.](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/helm/aws-load-balancer-controller/README.md)
+The controller runs on the worker nodes and needs access to AWS ALB/NLB resources via IAM permissions. When using the bundle chart, the IAM role is automatically created using Crossplane.
 
 ## Installing
 
-There are 3 ways to install this app onto a workload cluster.
-
-1. [Using our web interface](https://docs.giantswarm.io/ui-api/web/app-platform/#installing-an-app)
-2. [Using our API](https://docs.giantswarm.io/api/#operation/createClusterAppV5)
-3. Directly creating the [App custom resource](https://docs.giantswarm.io/ui-api/management-api/crd/apps.application.giantswarm.io/) on the management cluster.
-
-To automatically configure the correct KIAM annotation on the namespace, you can specify additional annotations directly in your App CR:
-
-Starting with [Giant Swarm Release 18.2.0](https://docs.giantswarm.io/changes/workload-cluster-releases-aws/releases/aws-v18.2.0/), aws-load-balancer-controller can be installed without specifying any additional configuration:
+Install the bundle chart on the management cluster using an App CR:
 
 ```yaml
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
-  name: aws-load-balancer-controller
-  namespace: <your-cluster-id>
+  name: coyote-aws-load-balancer-controller-bundle
+  namespace: org-acme
 spec:
   catalog: giantswarm
+  config:
+    configMap:
+      name: coyote-cluster-values
+      namespace: org-acme
   kubeConfig:
-    inCluster: false
-  name: aws-load-balancer-controller
-  namespace: aws-load-balancer-controller
-  namespaceConfig:
-    annotations:
-      iam.amazonaws.com/permitted: .*
-  version: 1.2.1
+    inCluster: true
+  name: aws-load-balancer-controller-bundle
+  namespace: org-acme
+  version: 3.0.0
 ```
 
-For all other releases, specify at least these values (Don't forget to reference your ConfigMap in the App CRs `spec.userConfig`):
+The bundle chart will:
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: aws-load-balancer-controller-userconfig
-  namespace: <your-cluster-id>
-data:
-  values: |
-    podAnnotations:
-        # don't forget to create the role and policy before trying to use them
-        iam.amazonaws.com/role: gs-<your-cluster-id>-ALBController-Role
-    vpcId: vpc-0c7dc1da1ca5b1819 # the VPC Id of your cluster
-    region: eu-west-1 # The AWS region your cluster is running in
-```
+1. Create the necessary IAM role with proper permissions using Crossplane
+2. Deploy the AWS Load Balancer Controller to the workload cluster using a Flux HelmRelease
 
-## Configuring
-Additionally to the IAM role, the region (e.g. eu-west-1) and the VPC ID are required.
+## Upgrade from v2.x.x to v3.x.x
 
-By default, a [PodDisruptionBudget](https://kubernetes.io/docs/tasks/run-application/configure-pdb) is configured so the admission webhook does not become unreachable, possibly blocking scheduling other pods or cluster maintenances.
-
-### values.yaml
-**This is an example of a values file you could upload using our web interface.**
-```
-# Deployment
-podAnnotations:
-    iam.amazonaws.com/role: AWSLoadBalancerControllerIAMRole # Will be picked up by KIAM to associate the pod with the given role
-vpcId: vpc-0c7dc1da1ca5b1819
-region: eu-west-1
-```
-
-See our [full reference page on how to configure applications](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
-
-## Contributing & Reporting Bugs
-If you have suggestions for how `aws-load-balancer-controller` could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
-
-Check out the [Contributing Guide](https://github.com/giantswarm/aws-load-balancer-controller-app/blob/main/CONTRIBUTING.md) for details on the contribution workflow, submitting patches, and reporting bugs.
-
-## Credit
-
-* https://github.com/giantswarm/aws-load-balancer-controller-app/tree/main/helm/aws-load-balancer-controller
+v3.x.x introduces a breaking change: a new installation method for the app. Please review the [v3 release notes](https://github.com/giantswarm/aws-load-balancer-controller-app/releases/tag/v3.0.0) for detailed upgrade instructions and migration steps.
