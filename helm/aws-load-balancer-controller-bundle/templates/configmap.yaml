@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.clusterID }}-aws-load-balancer-controller-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "aws-load-balancer-controller-bundle.labels" $ | nindent 4 }}
+data:
+  values: |
+  {{- (tpl (.Values | toYaml | toString) $) | nindent 4 }}
