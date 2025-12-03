@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Merge both the bundle and app chart into the same repository. Now the AWS Load Balancer Controller app and the bundle containing the necessary IAM resources (managed by Crossplane) will live in this repository.
 - The bundle chart now deploys the workload cluster chart using Flux HelmRelease instead of App CR.
+- Make sure both the bundle and app charts have been pushed to the catalogs before pushing to the capa app collection
 
 ## [2.2.1] - 2025-10-30
 

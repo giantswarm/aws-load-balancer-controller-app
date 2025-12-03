@@ -50,6 +50,7 @@ workflows:
           app_namespace: org-giantswarm
           app_collection_repo: capa-app-collection
           requires:
+            - push-aws-load-balancer-controller-to-giantswarm-catalog
             - push-aws-load-balancer-controller-bundle-to-control-plane-catalog
           filters:
             branches:
