@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Move Giant Swarm specific values to the bundle chart. Clean up the aws-load-balancer-controller chart from any GS specific stuff.
+
 ## [3.0.0] - 2025-12-03
 
 ### Changed
