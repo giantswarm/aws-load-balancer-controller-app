@@ -71,3 +71,20 @@ Get trust policy statements for all provided OIDC domains
 }
 {{- end -}}
 {{- end -}}
+
+{{/*
+Set Giant Swarm specific values.
+*/}}
+{{- define "giantswarm.setValues" -}}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "{{ .Values.clusterID }}-aws-load-balancer-controller-role" .) }}
+
+{{- if and (not .Values.clusterName) .Values.clusterID }}
+{{- $_ := set .Values "clusterName" (tpl "{{ .Values.clusterID }}" .) }}
+{{- end -}}
+
+{{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
+{{/*    - "kubernetes.io/cluster/$clusterID=owned"*/}}
+{{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
+{{- $_ := set .Values.defaultTags (printf "kubernetes.io/cluster/%s" .Values.clusterID) "owned" }}
+{{- $_ := set .Values.defaultTags "kubernetes.io/service-name" "aws-alb-controller" }}
+{{- end -}}
