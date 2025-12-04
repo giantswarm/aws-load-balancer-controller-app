@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2025-12-03
+
 ### Changed
 
 - Merge both the bundle and app chart into the same repository. Now the AWS Load Balancer Controller app and the bundle containing the necessary IAM resources (managed by Crossplane) will live in this repository.
@@ -206,7 +208,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automatic clusterName
 - App description in README.md
 
-[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.2.1...v3.0.0
 [2.2.1]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/giantswarm/aws-load-balancer-controller-app/compare/v2.0.0...v2.1.0
