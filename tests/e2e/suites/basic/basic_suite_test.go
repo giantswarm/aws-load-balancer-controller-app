@@ -25,6 +25,8 @@ func TestBasic(t *testing.T) {
 	suite.New().
 		// The namespace to install the bundle app into the management cluster
 		WithInstallNamespace("org-giantswarm").
+		// Use a shorter name otherwise we go over the limits when prefixed with the cluster name
+		WithInstallName("aws-lbc-bundle").
 		// If this is an upgrade test or not.
 		// If true, the suite will first install the latest released version of the app before upgrading to the test version
 		WithIsUpgrade(isUpgrade).
