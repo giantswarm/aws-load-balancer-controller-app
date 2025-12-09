@@ -1,4 +1,4 @@
-appName: "aws-load-balancer-controller-bundle"
+appName: "aws-load-balancer-controller"
 repoName: "aws-load-balancer-controller-app"
 appCatalog: "giantswarm"
 

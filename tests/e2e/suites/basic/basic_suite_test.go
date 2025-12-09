@@ -23,6 +23,8 @@ const (
 
 func TestBasic(t *testing.T) {
 	suite.New().
+		// The app bundle to install for the test
+		InAppBundle("aws-load-balancer-controller-bundle").
 		// The namespace to install the bundle app into the management cluster
 		WithInstallNamespace("org-giantswarm").
 		// Use a shorter name otherwise we go over the limits when prefixed with the cluster name
