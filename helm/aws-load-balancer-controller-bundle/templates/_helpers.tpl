@@ -55,6 +55,8 @@ Get trust policy statements for all provided OIDC domains
 {{- $cmvalues := dict -}}
 {{- if and $configmap $configmap.data $configmap.data.values -}}
   {{- $cmvalues = fromYaml $configmap.data.values -}}
+{{- else -}}
+  {{- fail (printf "Crossplane config ConfigMap %s-crossplane-config not found in namespace %s or has no data" .Values.clusterID .Release.Namespace) -}}
 {{- end -}}
 {{- range $index, $oidcDomain := $cmvalues.oidcDomains -}}
 {{- if not (eq $index 0) }}, {{ end }}{
