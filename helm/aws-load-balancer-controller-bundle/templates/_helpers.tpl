@@ -95,7 +95,7 @@ Set Giant Swarm specific values.
 */}}
 {{- define "giantswarm.setValues" -}}
 {{- $clusterName := (include "cluster-name" .) -}}
-{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "{{ $clusterName }}-aws-load-balancer-controller-role" .) -}}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (printf "%s-aws-load-balancer-controller-role" $clusterName) -}}
 
 {{- if and (not .Values.clusterName) -}}
 {{- $_ := set .Values "clusterName" $clusterName -}}
