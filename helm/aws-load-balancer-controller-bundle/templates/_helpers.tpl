@@ -31,6 +31,21 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "cluster-name" -}}
+{{- if .Values.clusterID -}}
+{{- .Values.clusterID -}}
+{{- else -}}
+{{- $name := .Release.Name -}}
+{{- range $suffix := list (printf "-%s" .Chart.Name) "-alb-controller-bundle" "-aws-lbc-bundle" "-albc-bundle" -}}
+{{- $name = trimSuffix $suffix $name -}}
+{{- end -}}
+{{- if eq $name .Release.Name -}}
+{{- fail "Cannot find cluster name in the chart's release name prefix" -}}
+{{- end -}}
+{{- $name -}}
+{{- end -}}
+{{- end -}}
+
 {{/*
 Common labels
 */}}
@@ -44,19 +59,20 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 giantswarm.io/service-type: "managed"
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-giantswarm.io/cluster: {{ .Values.clusterID | quote }}
+giantswarm.io/cluster: {{ include "cluster-name" . | quote }}
 {{- end -}}
 
 {{/*
 Get trust policy statements for all provided OIDC domains
 */}}
 {{- define "aws-load-balancer-controller-bundle.trustPolicyStatements" -}}
-{{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace (printf "%s-crossplane-config" .Values.clusterID)) -}}
+{{- $clusterName := (include "cluster-name" .) -}}
+{{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace (printf "%s-crossplane-config" $clusterName)) -}}
 {{- $cmvalues := dict -}}
 {{- if and $configmap $configmap.data $configmap.data.values -}}
   {{- $cmvalues = fromYaml $configmap.data.values -}}
 {{- else -}}
-  {{- fail (printf "Crossplane config ConfigMap %s-crossplane-config not found in namespace %s or has no data" .Values.clusterID .Release.Namespace) -}}
+  {{- fail (printf "Crossplane config ConfigMap %s-crossplane-config not found in namespace %s or has no data" $clusterName .Release.Namespace) -}}
 {{- end -}}
 {{- range $index, $oidcDomain := $cmvalues.oidcDomains -}}
 {{- if not (eq $index 0) }}, {{ end }}{
@@ -78,15 +94,16 @@ Get trust policy statements for all provided OIDC domains
 Set Giant Swarm specific values.
 */}}
 {{- define "giantswarm.setValues" -}}
-{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "{{ .Values.clusterID }}-aws-load-balancer-controller-role" .) }}
+{{- $clusterName := (include "cluster-name" .) -}}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (tpl "{{ $clusterName }}-aws-load-balancer-controller-role" .) -}}
 
-{{- if and (not .Values.clusterName) .Values.clusterID }}
-{{- $_ := set .Values "clusterName" (tpl "{{ .Values.clusterID }}" .) }}
+{{- if and (not .Values.clusterName) -}}
+{{- $_ := set .Values "clusterName" $clusterName -}}
 {{- end -}}
 
 {{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
 {{/*    - "kubernetes.io/cluster/$clusterID=owned"*/}}
 {{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
-{{- $_ := set .Values.defaultTags (printf "kubernetes.io/cluster/%s" .Values.clusterID) "owned" }}
+{{- $_ := set .Values.defaultTags (printf "kubernetes.io/cluster/%s" $clusterName) "owned" }}
 {{- $_ := set .Values.defaultTags "kubernetes.io/service-name" "aws-alb-controller" }}
 {{- end -}}

@@ -1,7 +1,8 @@
+{{- $clusterName := (include "cluster-name" .) -}}
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: {{ .Values.clusterID }}-aws-load-balancer-controller
+  name: {{ $clusterName }}-aws-load-balancer-controller
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aws-load-balancer-controller-bundle.labels" . | nindent 4 }}
@@ -14,7 +15,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: {{ .Values.clusterID }}-aws-load-balancer-controller
+  name: {{ $clusterName }}-aws-load-balancer-controller
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aws-load-balancer-controller-bundle.labels" . | nindent 4 }}
@@ -29,16 +30,16 @@ spec:
       retries: -1
   kubeConfig:
     secretRef:
-      name: {{ .Values.clusterID }}-kubeconfig
+      name: {{ $clusterName }}-kubeconfig
   chartRef:
     kind: OCIRepository
-    name: {{ .Values.clusterID }}-aws-load-balancer-controller
+    name: {{ $clusterName }}-aws-load-balancer-controller
     namespace: {{ .Release.Namespace }}
   releaseName: aws-load-balancer-controller
   targetNamespace: aws-load-balancer-controller
   storageNamespace: aws-load-balancer-controller
   valuesFrom:
     - kind: ConfigMap
-      name: {{ .Values.clusterID }}-aws-load-balancer-controller-config
+      name: {{ $clusterName }}-aws-load-balancer-controller-config
       valuesKey: values
       optional: false
