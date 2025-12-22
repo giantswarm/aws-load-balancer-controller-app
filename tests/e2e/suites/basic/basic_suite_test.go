@@ -23,10 +23,10 @@ const (
 
 func TestBasic(t *testing.T) {
 	suite.New().
-		// The app bundle to install for the test
-		InAppBundle("aws-load-balancer-controller-bundle").
-		// The namespace to install the bundle app into the management cluster
-		WithInstallNamespace("org-giantswarm").
+		// Install as a bundle on the management cluster
+		WithInCluster(true).
+		// Empty string forces the framework to install it in the created cluster org namespace
+		WithInstallNamespace("").
 		// Use a shorter name otherwise we go over the limits when prefixed with the cluster name
 		WithInstallName("aws-lbc-bundle").
 		// If this is an upgrade test or not.
