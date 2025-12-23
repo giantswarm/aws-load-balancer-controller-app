@@ -5,6 +5,7 @@ import (
 	"testing"
 	"time"
 
+	helmv2 "github.com/fluxcd/helm-controller/api/v2"
 	"github.com/giantswarm/apptest-framework/v2/pkg/state"
 	"github.com/giantswarm/clustertest/pkg/logger"
 	. "github.com/onsi/ginkgo/v2"
@@ -37,7 +38,15 @@ func TestBasic(t *testing.T) {
 			var service *corev1.Service
 			It("should manage LB creation", func() {
 				wcClient, err := state.GetFramework().WC(state.GetCluster().Name)
+				mcClient := state.GetFramework().MC()
 				Expect(err).Should(Succeed())
+
+				Eventually(func() (bool, error) {
+					return helmReleaseIsReady(mcClient, state.GetCluster().Name, state.GetCluster().Organization.Name)
+				}).
+					WithTimeout(2 * time.Minute).
+					WithPolling(5 * time.Second).
+					Should(BeTrueBecause("We expect the Helm release to be ready"))
 
 				Eventually(func() error {
 					service, err = createServiceLoadBalancer(wcClient, "default", "test-aws-lb-controller")
@@ -66,6 +75,29 @@ func TestBasic(t *testing.T) {
 		Run(t, "Basic Test")
 }
 
+func helmReleaseIsReady(mcClient client.Client, clusterName string, orgName string) (bool, error) {
+	helmReleaseName := clusterName + "-aws-load-balancer-controller"
+	helmReleaseNamespace := "org-" + orgName
+
+	helmRelease := &helmv2.HelmRelease{}
+	err := mcClient.Get(state.GetContext(), types.NamespacedName{
+		Name:      helmReleaseName,
+		Namespace: helmReleaseNamespace,
+	}, helmRelease)
+	if err != nil {
+		// Not found or an error
+		return false, err
+	}
+
+	// Check if Ready condition exists and is True
+	for _, cond := range helmRelease.Status.Conditions {
+		if cond.Type == "Ready" && cond.Status == metav1.ConditionTrue {
+			return true, nil
+		}
+	}
+	return false, nil
+}
+
 func serviceHasLBHostnameSetInStatus(wcClient client.Client, serviceNamespace, serviceName string) (bool, error) {
 	logger.Log("Checking if Service has load balancer set in status")
 	service := corev1.Service{}
@@ -75,8 +107,7 @@ func serviceHasLBHostnameSetInStatus(wcClient client.Client, serviceNamespace, s
 		return false, err
 	}
 
-	if service.Status.LoadBalancer.Ingress != nil &&
-		len(service.Status.LoadBalancer.Ingress) > 0 &&
+	if len(service.Status.LoadBalancer.Ingress) > 0 &&
 		service.Status.LoadBalancer.Ingress[0].Hostname != "" {
 
 		logger.Log("Load balancer hostname found in Service status: %s", service.Status.LoadBalancer.Ingress[0].Hostname)
