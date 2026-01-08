@@ -63,9 +63,9 @@ giantswarm.io/cluster: {{ include "cluster-name" . | quote }}
 {{- end -}}
 
 {{/*
-Get trust policy statements for all provided OIDC domains
+Fetch crossplane config ConfigMap data
 */}}
-{{- define "aws-load-balancer-controller-bundle.trustPolicyStatements" -}}
+{{- define "aws-load-balancer-controller-bundle.crossplaneConfigData" -}}
 {{- $clusterName := (include "cluster-name" .) -}}
 {{- $configmap := (lookup "v1" "ConfigMap" .Release.Namespace (printf "%s-crossplane-config" $clusterName)) -}}
 {{- $cmvalues := dict -}}
@@ -74,6 +74,14 @@ Get trust policy statements for all provided OIDC domains
 {{- else -}}
   {{- fail (printf "Crossplane config ConfigMap %s-crossplane-config not found in namespace %s or has no data" $clusterName .Release.Namespace) -}}
 {{- end -}}
+{{- $cmvalues | toYaml -}}
+{{- end -}}
+
+{{/*
+Get trust policy statements for all provided OIDC domains
+*/}}
+{{- define "aws-load-balancer-controller-bundle.trustPolicyStatements" -}}
+{{- $cmvalues := (include "aws-load-balancer-controller-bundle.crossplaneConfigData" .) | fromYaml -}}
 {{- range $index, $oidcDomain := $cmvalues.oidcDomains -}}
 {{- if not (eq $index 0) }}, {{ end }}{
   "Effect": "Allow",
@@ -94,8 +102,9 @@ Get trust policy statements for all provided OIDC domains
 Set Giant Swarm specific values.
 */}}
 {{- define "giantswarm.setValues" -}}
+{{- $cmvalues := (include "aws-load-balancer-controller-bundle.crossplaneConfigData" .) | fromYaml -}}
 {{- $clusterName := (include "cluster-name" .) -}}
-{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (printf "%s-aws-load-balancer-controller-role" $clusterName) -}}
+{{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (printf "arn:%s:iam::%s:role/%s-aws-load-balancer-controller-role" $cmvalues.awsPartition $cmvalues.accountID $clusterName) -}}
 
 {{- if and (not .Values.clusterName) -}}
 {{- $_ := set .Values "clusterName" $clusterName -}}
