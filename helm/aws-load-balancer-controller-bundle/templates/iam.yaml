@@ -1,18 +1,19 @@
+{{- $clusterName := (include "cluster-name" .) -}}
 apiVersion: iam.aws.upbound.io/v1beta1
 kind: Role
 metadata:
-  name: {{ .Values.clusterID }}-aws-load-balancer-controller-role
+  name: {{ $clusterName }}-aws-load-balancer-controller-role
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aws-load-balancer-controller-bundle.labels" . | nindent 4 }}
 spec:
   providerConfigRef:
-    name: {{ .Values.clusterID }}
+    name: {{ $clusterName }}
   forProvider:
     tags:
-      giantswarm.io/cluster: {{ .Values.clusterID }}
+      giantswarm.io/cluster: {{ $clusterName }}
       giantswarm.io/managed-by: {{ include "aws-load-balancer-controller-bundle.fullname" . }}
-      sigs.k8s.io/cluster-api-provider-aws/cluster/{{ .Values.clusterID }}: owned
+      sigs.k8s.io/cluster-api-provider-aws/cluster/{{ $clusterName }}: owned
     assumeRolePolicy: |
       {
         "Version": "2012-10-17",
