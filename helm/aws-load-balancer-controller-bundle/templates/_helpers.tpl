@@ -106,7 +106,7 @@ Set Giant Swarm specific values.
 {{- $clusterName := (include "cluster-name" .) -}}
 {{- $_ := set .Values.serviceAccount.annotations "eks.amazonaws.com/role-arn" (printf "arn:%s:iam::%s:role/%s-aws-load-balancer-controller-role" $cmvalues.awsPartition $cmvalues.accountID $clusterName) -}}
 
-{{- if and (not .Values.clusterName) -}}
+{{- if not .Values.clusterName -}}
 {{- $_ := set .Values "clusterName" $clusterName -}}
 {{- end -}}
 
