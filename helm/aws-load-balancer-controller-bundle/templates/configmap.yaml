@@ -1,7 +1,9 @@
+{{- include "giantswarm.setValues" . -}}
+{{- $clusterName := (include "cluster-name" .) -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.clusterID }}-aws-load-balancer-controller-config
+  name: {{ $clusterName }}-aws-load-balancer-controller-config
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aws-load-balancer-controller-bundle.labels" $ | nindent 4 }}
