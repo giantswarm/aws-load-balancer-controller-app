@@ -1,4 +1,4 @@
-# Default values for aws-load-balancer-controller-bundle
+# Default values for aws-lb-controller-bundle
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -8,7 +8,7 @@ fullnameOverride: ""
 bundleNameOverride: ""
 fullBundleNameOverride: ""
 
-ociRepositoryUrl: oci://gsoci.azurecr.io/charts/giantswarm/aws-load-balancer-controller
+ociRepositoryUrl: oci://gsoci.azurecr.io/charts/giantswarm/aws-lb-controller
 
 # Workload cluster chart values (duplicated from main chart)
 replicaCount: 2
@@ -379,7 +379,7 @@ controllerConfig:
   # ALBSingleSubnet: false
 
 certDiscovery:
-  allowedCertificateAuthorityARNs: ""  # empty means all CAs are in scope
+  allowedCertificateAuthorityARNs: "" # empty means all CAs are in scope
 
 # objectSelector for webhook
 objectSelector:
@@ -438,8 +438,8 @@ serviceMutatorWebhookConfig:
       # key: value
   # which operations trigger the webhook
   operations:
-  - CREATE
-    # - UPDATE
+    - CREATE
+      # - UPDATE
 
 # serviceTargetENISGTags specifies AWS tags, in addition to the cluster tags, for finding the target ENI SG to which to add inbound rules from NLBs.
 serviceTargetENISGTags:

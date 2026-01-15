@@ -9,7 +9,7 @@ directories:
           ref: "release-2.8"
         includePaths:
           - helm/aws-load-balancer-controller/**/*
-  - path: helm/aws-load-balancer-controller
+  - path: helm/aws-lb-controller
     contents:
       - path: .
         directory:
