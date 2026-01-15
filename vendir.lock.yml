@@ -2,11 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Add unhealthyPodEvictionPolicy and define status port in deployment
-        (#10)...
-      sha: 3b2773cf1bf351e17c2580131cec6f5f77feaa25
+      commitTitle: cut v2.8.3 release (#3856)
+      sha: a1418f94a060043cacb43cc8f0aeb7f4ac1eb94d
       tags:
-      - v2.8.3-19-g3b2773cf1
+      - v2.8.3
     path: aws-load-balancer-controller
   path: vendor
 - contents:
