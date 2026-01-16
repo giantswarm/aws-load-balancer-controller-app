@@ -1,0 +1,555 @@
+apiVersion: controlplane.cluster.x-k8s.io/v1beta2
+kind: KubeadmControlPlane
+metadata:
+  annotations:
+    helm.sh/resource-policy: keep
+    meta.helm.sh/release-name: greenoak
+    meta.helm.sh/release-namespace: org-giantswarm
+  creationTimestamp: "2026-01-08T15:02:00Z"
+  finalizers:
+    - kubeadm.controlplane.cluster.x-k8s.io
+  generation: 2
+  labels:
+    app: cluster-aws
+    app.kubernetes.io/instance: greenoak
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cluster
+    app.kubernetes.io/part-of: cluster-aws
+    app.kubernetes.io/version: 4.4.0
+    application.giantswarm.io/team: turtles
+    cluster.x-k8s.io/cluster-name: greenoak
+    cluster.x-k8s.io/watch-filter: capi
+    giantswarm.io/cluster: greenoak
+    giantswarm.io/organization: giantswarm
+    giantswarm.io/service-priority: highest
+    helm.sh/chart: cluster-4.4.0
+    release.giantswarm.io/version: 33.1.1
+  name: greenoak
+  namespace: org-giantswarm
+  ownerReferences:
+    - apiVersion: cluster.x-k8s.io/v1beta2
+      blockOwnerDeletion: true
+      controller: true
+      kind: Cluster
+      name: greenoak
+      uid: a40c230f-3e90-4e3d-a65a-a192168eb2ba
+  resourceVersion: "13821617"
+  uid: 4640e61b-c227-4ad7-9187-d3b4e89459f6
+spec:
+  kubeadmConfigSpec:
+    clusterConfiguration:
+      apiServer:
+        certSANs:
+          - localhost
+          - 127.0.0.1
+          - api.greenoak.vorwerk.gigantic.io
+          - apiserver.greenoak.vorwerk.gigantic.io
+        extraArgs:
+          - name: api-audiences
+            value: sts.amazonaws.com
+          - name: audit-log-maxage
+            value: "30"
+          - name: audit-log-maxbackup
+            value: "30"
+          - name: audit-log-maxsize
+            value: "100"
+          - name: audit-log-path
+            value: /var/log/apiserver/audit.log
+          - name: audit-policy-file
+            value: /etc/kubernetes/policies/audit-policy.yaml
+          - name: enable-admission-plugins
+            value: DefaultStorageClass,DefaultTolerationSeconds,LimitRanger,MutatingAdmissionWebhook,NamespaceLifecycle,OwnerReferencesPermissionEnforcement,PersistentVolumeClaimResize,Priority,ResourceQuota,ServiceAccount,ValidatingAdmissionWebhook
+          - name: enable-priority-and-fairness
+            value: "true"
+          - name: encryption-provider-config
+            value: /etc/kubernetes/encryption/config.yaml
+          - name: feature-gates
+            value: MutableCSINodeAllocatableCount=true,StatefulSetAutoDeletePVC=true
+          - name: kubelet-preferred-address-types
+            value: InternalIP
+          - name: oidc-client-id
+            value: dex-k8s-authenticator
+          - name: oidc-groups-claim
+            value: groups
+          - name: oidc-issuer-url
+            value: https://dex.greenoak.vorwerk.gigantic.io
+          - name: oidc-username-claim
+            value: email
+          - name: profiling
+            value: "false"
+          - name: runtime-config
+            value: api/all=true
+          - name: service-account-issuer
+            value: https://irsa.greenoak.vorwerk.gigantic.io
+          - name: service-account-lookup
+            value: "true"
+          - name: service-cluster-ip-range
+            value: 172.31.0.0/16
+          - name: tls-cipher-suites
+            value: TLS_AES_128_GCM_SHA256,TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_128_GCM_SHA256
+        extraVolumes:
+          - hostPath: /var/log/apiserver
+            mountPath: /var/log/apiserver
+            name: auditlog
+            pathType: DirectoryOrCreate
+          - hostPath: /etc/kubernetes/policies
+            mountPath: /etc/kubernetes/policies
+            name: policies
+            pathType: DirectoryOrCreate
+          - hostPath: /etc/kubernetes/encryption
+            mountPath: /etc/kubernetes/encryption
+            name: encryption
+            pathType: DirectoryOrCreate
+      controllerManager:
+        extraArgs:
+          - name: allocate-node-cidrs
+            value: "true"
+          - name: authorization-always-allow-paths
+            value: /healthz,/readyz,/livez,/metrics
+          - name: bind-address
+            value: 0.0.0.0
+          - name: cloud-provider
+            value: external
+          - name: cluster-cidr
+            value: 100.64.0.0/12
+          - name: feature-gates
+            value: StatefulSetAutoDeletePVC=true
+          - name: terminated-pod-gc-threshold
+            value: "125"
+      etcd:
+        local:
+          extraArgs:
+            - name: listen-metrics-urls
+              value: http://0.0.0.0:2381
+            - name: quota-backend-bytes
+              value: "8589934592"
+      imageRepository: gsoci.azurecr.io/giantswarm
+      scheduler:
+        extraArgs:
+          - name: authorization-always-allow-paths
+            value: /healthz,/readyz,/livez,/metrics
+          - name: bind-address
+            value: 0.0.0.0
+    files:
+      - content: ZnMuaW5vdGlmeS5tYXhfdXNlcl93YXRjaGVzID0gMTYzODQKZnMuaW5vdGlmeS5tYXhfdXNlcl9pbnN0YW5jZXMgPSA4MTkyCmtlcm5lbC5rcHRyX3Jlc3RyaWN0ID0gMgprZXJuZWwuc3lzcnEgPSAwCm5ldC5pcHY0LmNvbmYuYWxsLmxvZ19tYXJ0aWFucyA9IDEKbmV0LmlwdjQuY29uZi5hbGwuc2VuZF9yZWRpcmVjdHMgPSAwCm5ldC5pcHY0LmNvbmYuZGVmYXVsdC5hY2NlcHRfcmVkaXJlY3RzID0gMApuZXQuaXB2NC5jb25mLmRlZmF1bHQubG9nX21hcnRpYW5zID0gMQpuZXQuaXB2NC50Y3BfdGltZXN0YW1wcyA9IDAKbmV0LmlwdjYuY29uZi5hbGwuYWNjZXB0X3JlZGlyZWN0cyA9IDAKbmV0LmlwdjYuY29uZi5kZWZhdWx0LmFjY2VwdF9yZWRpcmVjdHMgPSAwCiMgSW5jcmVhc2VkIG1tYXBmcyBiZWNhdXNlIHNvbWUgYXBwbGljYXRpb25zLCBsaWtlIEVTLCBuZWVkIGhpZ2hlciBsaW1pdCB0byBzdG9yZSBkYXRhIHByb3Blcmx5CnZtLm1heF9tYXBfY291bnQgPSAyNjIxNDQKIyBSZXNlcnZlZCB0byBhdm9pZCBjb25mbGljdHMgd2l0aCBrdWJlLWFwaXNlcnZlciwgd2hpY2ggYWxsb2NhdGVzIHdpdGhpbiB0aGlzIHJhbmdlCm5ldC5pcHY0LmlwX2xvY2FsX3Jlc2VydmVkX3BvcnRzPTMwMDAwLTMyNzY3Cm5ldC5pcHY0LmNvbmYuYWxsLnJwX2ZpbHRlciA9IDEKbmV0LmlwdjQuY29uZi5hbGwuYXJwX2lnbm9yZSA9IDEKbmV0LmlwdjQuY29uZi5hbGwuYXJwX2Fubm91bmNlID0gMgoKIyBUaGVzZSBhcmUgcmVxdWlyZWQgZm9yIHRoZSBrdWJlbGV0ICctLXByb3RlY3Qta2VybmVsLWRlZmF1bHRzJyBmbGFnCiMgU2VlIGh0dHBzOi8vZ2l0aHViLmNvbS9naWFudHN3YXJtL2dpYW50c3dhcm0vaXNzdWVzLzEzNTg3CnZtLm92ZXJjb21taXRfbWVtb3J5PTEKa2VybmVsLnBhbmljPTEwCmtlcm5lbC5wYW5pY19vbl9vb3BzPTEK
+        encoding: base64
+        path: /etc/sysctl.d/hardening.conf
+        permissions: "0644"
+      - contentFrom:
+          secret:
+            key: config.toml
+            name: greenoak-containerd-f849bd6c
+        path: /etc/containerd/config.toml
+        permissions: "0644"
+      - content: IyBUaGlzIGZpbGUgY29udHJvbHMgdGhlIHN0YXRlIG9mIFNFTGludXggb24gdGhlIHN5c3RlbSBvbiBib290LgoKIyBTRUxJTlVYIGNhbiB0YWtlIG9uZSBvZiB0aGVzZSB0aHJlZSB2YWx1ZXM6CiMgICAgICAgZW5mb3JjaW5nIC0gU0VMaW51eCBzZWN1cml0eSBwb2xpY3kgaXMgZW5mb3JjZWQuCiMgICAgICAgcGVybWlzc2l2ZSAtIFNFTGludXggcHJpbnRzIHdhcm5pbmdzIGluc3RlYWQgb2YgZW5mb3JjaW5nLgojICAgICAgIGRpc2FibGVkIC0gTm8gU0VMaW51eCBwb2xpY3kgaXMgbG9hZGVkLgpTRUxJTlVYPXBlcm1pc3NpdmUKCiMgU0VMSU5VWFRZUEUgY2FuIHRha2Ugb25lIG9mIHRoZXNlIGZvdXIgdmFsdWVzOgojICAgICAgIHRhcmdldGVkIC0gT25seSB0YXJnZXRlZCBuZXR3b3JrIGRhZW1vbnMgYXJlIHByb3RlY3RlZC4KIyAgICAgICBzdHJpY3QgICAtIEZ1bGwgU0VMaW51eCBwcm90ZWN0aW9uLgojICAgICAgIG1scyAgICAgIC0gRnVsbCBTRUxpbnV4IHByb3RlY3Rpb24gd2l0aCBNdWx0aS1MZXZlbCBTZWN1cml0eQojICAgICAgIG1jcyAgICAgIC0gRnVsbCBTRUxpbnV4IHByb3RlY3Rpb24gd2l0aCBNdWx0aS1DYXRlZ29yeSBTZWN1cml0eQojICAgICAgICAgICAgICAgICAgKG1scywgYnV0IG9ubHkgb25lIHNlbnNpdGl2aXR5IGxldmVsKQpTRUxJTlVYVFlQRT1tY3MK
+        encoding: base64
+        path: /etc/selinux/config
+        permissions: "0644"
+      - content: W1RpbWVdCk5UUD0xNjkuMjU0LjE2OS4xMjMK
+        encoding: base64
+        path: /etc/systemd/timesyncd.conf
+        permissions: "0644"
+      - content: YXBpVmVyc2lvbjoga3ViZWxldC5jb25maWcuazhzLmlvL3YxYmV0YTEKa2luZDogS3ViZWxldENvbmZpZ3VyYXRpb24Kc2h1dGRvd25HcmFjZVBlcmlvZDogMzAwcwpzaHV0ZG93bkdyYWNlUGVyaW9kQ3JpdGljYWxQb2RzOiA2MHMKa2VybmVsTWVtY2dOb3RpZmljYXRpb246IHRydWUKZXZpY3Rpb25Tb2Z0OgogIG1lbW9yeS5hdmFpbGFibGU6ICI1MDBNaSIKZXZpY3Rpb25IYXJkOgogIG1lbW9yeS5hdmFpbGFibGU6ICIyMDBNaSIKICBpbWFnZWZzLmF2YWlsYWJsZTogIjE1JSIKZXZpY3Rpb25Tb2Z0R3JhY2VQZXJpb2Q6CiAgbWVtb3J5LmF2YWlsYWJsZTogIjVzIgpldmljdGlvbk1heFBvZEdyYWNlUGVyaW9kOiA2MApmZWF0dXJlR2F0ZXM6CiAgTXV0YWJsZUNTSU5vZGVBbGxvY2F0YWJsZUNvdW50OiB0cnVlCmt1YmVSZXNlcnZlZDoKICBjcHU6IDM1MG0KICBtZW1vcnk6IDEyODBNaQogIGVwaGVtZXJhbC1zdG9yYWdlOiAxMDI0TWkKa3ViZVJlc2VydmVkQ2dyb3VwOiAva3ViZXJlc2VydmVkLnNsaWNlCnByb3RlY3RLZXJuZWxEZWZhdWx0czogdHJ1ZQpzeXN0ZW1SZXNlcnZlZDoKICBjcHU6IDI1MG0KICBtZW1vcnk6IDM4NE1pCnN5c3RlbVJlc2VydmVkQ2dyb3VwOiAvc3lzdGVtLnNsaWNlCnRsc0NpcGhlclN1aXRlczogCiAgLSBUTFNfQUVTXzEyOF9HQ01fU0hBMjU2CiAgLSBUTFNfQUVTXzI1Nl9HQ01fU0hBMzg0CiAgLSBUTFNfQ0hBQ0hBMjBfUE9MWTEzMDVfU0hBMjU2CiAgLSBUTFNfRUNESEVfRUNEU0FfV0lUSF9BRVNfMTI4X0NCQ19TSEEKICAtIFRMU19FQ0RIRV9FQ0RTQV9XSVRIX0FFU18xMjhfR0NNX1NIQTI1NgogIC0gVExTX0VDREhFX0VDRFNBX1dJVEhfQUVTXzI1Nl9DQkNfU0hBCiAgLSBUTFNfRUNESEVfRUNEU0FfV0lUSF9BRVNfMjU2X0dDTV9TSEEzODQKICAtIFRMU19FQ0RIRV9FQ0RTQV9XSVRIX0NIQUNIQTIwX1BPTFkxMzA1X1NIQTI1NgogIC0gVExTX0VDREhFX1JTQV9XSVRIX0FFU18xMjhfQ0JDX1NIQQogIC0gVExTX0VDREhFX1JTQV9XSVRIX0FFU18xMjhfR0NNX1NIQTI1NgogIC0gVExTX0VDREhFX1JTQV9XSVRIX0FFU18yNTZfQ0JDX1NIQQogIC0gVExTX0VDREhFX1JTQV9XSVRIX0FFU18yNTZfR0NNX1NIQTM4NAogIC0gVExTX0VDREhFX1JTQV9XSVRIX0NIQUNIQTIwX1BPTFkxMzA1X1NIQTI1NgogIC0gVExTX1JTQV9XSVRIX0FFU18xMjhfQ0JDX1NIQQogIC0gVExTX1JTQV9XSVRIX0FFU18xMjhfR0NNX1NIQTI1NgpzZXJpYWxpemVJbWFnZVB1bGxzOiBmYWxzZQpzdHJlYW1pbmdDb25uZWN0aW9uSWRsZVRpbWVvdXQ6IDFoCmFsbG93ZWRVbnNhZmVTeXNjdGxzOgotICJuZXQuKiIK
+        encoding: base64
+        path: /etc/kubernetes/patches/kubeletconfiguration.yaml
+        permissions: "0644"
+      - content: W0xvZ2luXQojIGRlbGF5CkluaGliaXREZWxheU1heFNlYz0zMDAK
+        encoding: base64
+        path: /etc/systemd/logind.conf.d/zzz-kubelet-graceful-shutdown.conf
+        permissions: "0700"
+      - contentFrom:
+          secret:
+            key: joinToken
+            name: greenoak-teleport-join-token
+        path: /etc/teleport-join-token
+        permissions: "0644"
+      - content: IyEvYmluL2Jhc2gKCmlmIHN5c3RlbWN0bCBpcy1hY3RpdmUgLXEga3ViZWxldC5zZXJ2aWNlOyB0aGVuCiAgICBpZiBbIC1lICIvZXRjL2t1YmVybmV0ZXMvbWFuaWZlc3RzL2t1YmUtYXBpc2VydmVyLnlhbWwiIF07IHRoZW4KICAgICAgICBlY2hvICJjb250cm9sLXBsYW5lIgogICAgZWxzZQogICAgICAgIGVjaG8gIndvcmtlciIKICAgIGZpCmVsc2UKICAgIGVjaG8gIiIKZmkK
+        encoding: base64
+        path: /opt/teleport-node-role.sh
+        permissions: "0755"
+      - content: dmVyc2lvbjogdjMKdGVsZXBvcnQ6CiAgZGF0YV9kaXI6IC90ZWxlcG9ydAogIGpvaW5fcGFyYW1zOgogICAgdG9rZW5fbmFtZTogL2V0Yy90ZWxlcG9ydC1qb2luLXRva2VuCiAgICBtZXRob2Q6IHRva2VuCiAgcHJveHlfc2VydmVyOiB0ZWxlcG9ydC5naWFudHN3YXJtLmlvOjQ0MwogIGxvZzoKICAgIG91dHB1dDogc3RkZXJyCmF1dGhfc2VydmljZToKICBlbmFibGVkOiAibm8iCnNzaF9zZXJ2aWNlOgogIGVuYWJsZWQ6ICJ5ZXMiCiAgY29tbWFuZHM6CiAgLSBuYW1lOiBub2RlCiAgICBjb21tYW5kOiBbaG9zdG5hbWVdCiAgICBwZXJpb2Q6IDI0aDBtMHMKICAtIG5hbWU6IGFyY2gKICAgIGNvbW1hbmQ6IFt1bmFtZSwgLW1dCiAgICBwZXJpb2Q6IDI0aDBtMHMKICAtIG5hbWU6IHJvbGUKICAgIGNvbW1hbmQ6IFsvb3B0L3RlbGVwb3J0LW5vZGUtcm9sZS5zaF0KICAgIHBlcmlvZDogMW0wcwogIGxhYmVsczoKICAgIGluczogZ3JlZW5vYWsKICAgIG1jOiBncmVlbm9hawogICAgY2x1c3RlcjogZ3JlZW5vYWsKICAgIGJhc2VEb21haW46IHZvcndlcmsuZ2lnYW50aWMuaW8KcHJveHlfc2VydmljZToKICBlbmFibGVkOiAibm8iCg==
+        encoding: base64
+        path: /etc/teleport.yaml
+        permissions: "0644"
+      - contentFrom:
+          secret:
+            key: kubelet-aws-config.sh
+            name: greenoak-provider-specific-files-4
+        path: /opt/bin/kubelet-aws-config.sh
+        permissions: "0755"
+      - contentFrom:
+          secret:
+            key: kubelet-aws-config.service
+            name: greenoak-provider-specific-files-4
+        path: /etc/systemd/system/kubelet-aws-config.service
+        permissions: "0644"
+      - contentFrom:
+          secret:
+            key: 99-unmanaged-devices.network
+            name: greenoak-provider-specific-files-4
+        path: /etc/systemd/network/99-unmanaged-devices.network
+        permissions: "0644"
+      - content: YXBpVmVyc2lvbjogYXVkaXQuazhzLmlvL3YxCmtpbmQ6IFBvbGljeQpydWxlczoKICAjIFRoZSBmb2xsb3dpbmcgcmVxdWVzdHMgd2VyZSBtYW51YWxseSBpZGVudGlmaWVkIGFzIGhpZ2gtdm9sdW1lIGFuZCBsb3ctcmlzaywKICAjIHNvIGRyb3AgdGhlbS4KICAtIGxldmVsOiBOb25lCiAgICB1c2VyczogWyJzeXN0ZW06a3ViZS1wcm94eSJdCiAgICB2ZXJiczogWyJ3YXRjaCJdCiAgICByZXNvdXJjZXM6CiAgICAgIC0gZ3JvdXA6ICIiICMgY29yZQogICAgICAgIHJlc291cmNlczogWyJlbmRwb2ludHMiLCAic2VydmljZXMiLCAic2VydmljZXMvc3RhdHVzIl0KICAtIGxldmVsOiBOb25lCiAgICAjIEluZ3Jlc3MgY29udHJvbGxlciByZWFkcyAnY29uZmlnbWFwcy9pbmdyZXNzLXVpZCcgdGhyb3VnaCB0aGUgdW5zZWN1cmVkIHBvcnQuCiAgICB1c2VyczogWyJzeXN0ZW06dW5zZWN1cmVkIl0KICAgIG5hbWVzcGFjZXM6IFsia3ViZS1zeXN0ZW0iXQogICAgdmVyYnM6IFsiZ2V0Il0KICAgIHJlc291cmNlczoKICAgICAgLSBncm91cDogIiIgIyBjb3JlCiAgICAgICAgcmVzb3VyY2VzOiBbImNvbmZpZ21hcHMiXQogIC0gbGV2ZWw6IE5vbmUKICAgIHVzZXJzOiBbImt1YmVsZXQiXSAjIGxlZ2FjeSBrdWJlbGV0IGlkZW50aXR5CiAgICB2ZXJiczogWyJnZXQiXQogICAgcmVzb3VyY2VzOgogICAgICAtIGdyb3VwOiAiIiAjIGNvcmUKICAgICAgICByZXNvdXJjZXM6IFsibm9kZXMiLCAibm9kZXMvc3RhdHVzIl0KICAtIGxldmVsOiBOb25lCiAgICB1c2VyR3JvdXBzOiBbInN5c3RlbTpub2RlcyJdCiAgICB2ZXJiczogWyJnZXQiXQogICAgcmVzb3VyY2VzOgogICAgICAtIGdyb3VwOiAiIiAjIGNvcmUKICAgICAgICByZXNvdXJjZXM6IFsibm9kZXMiLCAibm9kZXMvc3RhdHVzIl0KICAtIGxldmVsOiBOb25lCiAgICB1c2VyczoKICAgICAgLSBzeXN0ZW06a3ViZS1jb250cm9sbGVyLW1hbmFnZXIKICAgICAgLSBzeXN0ZW06a3ViZS1zY2hlZHVsZXIKICAgICAgLSBzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZW5kcG9pbnQtY29udHJvbGxlcgogICAgdmVyYnM6IFsiZ2V0IiwgInVwZGF0ZSJdCiAgICBuYW1lc3BhY2VzOiBbImt1YmUtc3lzdGVtIl0KICAgIHJlc291cmNlczoKICAgICAgLSBncm91cDogIiIgIyBjb3JlCiAgICAgICAgcmVzb3VyY2VzOiBbImVuZHBvaW50cyJdCiAgLSBsZXZlbDogTm9uZQogICAgdXNlcnM6IFsic3lzdGVtOmFwaXNlcnZlciJdCiAgICB2ZXJiczogWyJnZXQiXQogICAgcmVzb3VyY2VzOgogICAgICAtIGdyb3VwOiAiIiAjIGNvcmUKICAgICAgICByZXNvdXJjZXM6IFsibmFtZXNwYWNlcyIsICJuYW1lc3BhY2VzL3N0YXR1cyIsICJuYW1lc3BhY2VzL2ZpbmFsaXplIl0KICAtIGxldmVsOiBOb25lCiAgICB1c2VyczogWyJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06Y2x1c3Rlci1hdXRvc2NhbGVyIl0KICAgIHZlcmJzOiBbImdldCIsICJ1cGRhdGUiXQogICAgbmFtZXNwYWNlczogWyJrdWJlLXN5c3RlbSJdCiAgICByZXNvdXJjZXM6CiAgICAgIC0gZ3JvdXA6ICIiICMgY29yZQogICAgICAgIHJlc291cmNlczogWyJjb25maWdtYXBzIiwgImVuZHBvaW50cyJdCiAgIyBEb24ndCBsb2cgSFBBIGZldGNoaW5nIG1ldHJpY3MuCiAgLSBsZXZlbDogTm9uZQogICAgdXNlcnM6CiAgICAgIC0gc3lzdGVtOmt1YmUtY29udHJvbGxlci1tYW5hZ2VyCiAgICB2ZXJiczogWyJnZXQiLCAibGlzdCJdCiAgICByZXNvdXJjZXM6CiAgICAgIC0gZ3JvdXA6ICJtZXRyaWNzLms4cy5pbyIKICAjIERvbid0IGxvZyB0aGVzZSByZWFkLW9ubHkgVVJMcy4KICAtIGxldmVsOiBOb25lCiAgICBub25SZXNvdXJjZVVSTHM6CiAgICAgIC0gL2hlYWx0aHoqCiAgICAgIC0gL3ZlcnNpb24KICAgICAgLSAvc3dhZ2dlcioKICAjIERvbid0IGxvZyBldmVudHMgcmVxdWVzdHMuCiAgLSBsZXZlbDogTm9uZQogICAgcmVzb3VyY2VzOgogICAgICAtIGdyb3VwOiAiIiAjIGNvcmUKICAgICAgICByZXNvdXJjZXM6IFsiZXZlbnRzIl0KICAjIG5vZGUgYW5kIHBvZCBzdGF0dXMgY2FsbHMgZnJvbSBub2RlcyBhcmUgaGlnaC12b2x1bWUgYW5kIGNhbiBiZSBsYXJnZSwgZG9uJ3QgbG9nIHJlc3BvbnNlcyBmb3IgZXhwZWN0ZWQgdXBkYXRlcyBmcm9tIG5vZGVzCiAgLSBsZXZlbDogUmVxdWVzdAogICAgdXNlcnM6CiAgICAgIFsKICAgICAgICAia3ViZWxldCIsCiAgICAgICAgInN5c3RlbTpub2RlLXByb2JsZW0tZGV0ZWN0b3IiLAogICAgICAgICJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06bm9kZS1wcm9ibGVtLWRldGVjdG9yIiwKICAgICAgXQogICAgdmVyYnM6IFsidXBkYXRlIiwgInBhdGNoIl0KICAgIHJlc291cmNlczoKICAgICAgLSBncm91cDogIiIgIyBjb3JlCiAgICAgICAgcmVzb3VyY2VzOiBbIm5vZGVzL3N0YXR1cyIsICJwb2RzL3N0YXR1cyJdCiAgICBvbWl0U3RhZ2VzOgogICAgICAtICJSZXF1ZXN0UmVjZWl2ZWQiCiAgLSBsZXZlbDogUmVxdWVzdAogICAgdXNlckdyb3VwczogWyJzeXN0ZW06bm9kZXMiXQogICAgdmVyYnM6IFsidXBkYXRlIiwgInBhdGNoIl0KICAgIHJlc291cmNlczoKICAgICAgLSBncm91cDogIiIgIyBjb3JlCiAgICAgICAgcmVzb3VyY2VzOiBbIm5vZGVzL3N0YXR1cyIsICJwb2RzL3N0YXR1cyJdCiAgICBvbWl0U3RhZ2VzOgogICAgICAtICJSZXF1ZXN0UmVjZWl2ZWQiCiAgIyBkZWxldGVjb2xsZWN0aW9uIGNhbGxzIGNhbiBiZSBsYXJnZSwgZG9uJ3QgbG9nIHJlc3BvbnNlcyBmb3IgZXhwZWN0ZWQgbmFtZXNwYWNlIGRlbGV0aW9ucwogIC0gbGV2ZWw6IFJlcXVlc3QKICAgIHVzZXJzOiBbInN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTpuYW1lc3BhY2UtY29udHJvbGxlciJdCiAgICB2ZXJiczogWyJkZWxldGVjb2xsZWN0aW9uIl0KICAgIG9taXRTdGFnZXM6CiAgICAgIC0gIlJlcXVlc3RSZWNlaXZlZCIKICAjIFNlY3JldHMsIENvbmZpZ01hcHMsIGFuZCBUb2tlblJldmlld3MgY2FuIGNvbnRhaW4gc2Vuc2l0aXZlICYgYmluYXJ5IGRhdGEsCiAgIyBzbyBvbmx5IGxvZyBhdCB0aGUgTWV0YWRhdGEgbGV2ZWwuCiAgLSBsZXZlbDogTWV0YWRhdGEKICAgIHJlc291cmNlczoKICAgICAgLSBncm91cDogIiIgIyBjb3JlCiAgICAgICAgcmVzb3VyY2VzOiBbInNlY3JldHMiLCAiY29uZmlnbWFwcyJdCiAgICAgIC0gZ3JvdXA6IGF1dGhlbnRpY2F0aW9uLms4cy5pbwogICAgICAgIHJlc291cmNlczogWyJ0b2tlbnJldmlld3MiXQogICAgb21pdFN0YWdlczoKICAgICAgLSAiUmVxdWVzdFJlY2VpdmVkIgogICMgR2V0IHJlcHNvbnNlcyBjYW4gYmUgbGFyZ2U7IHNraXAgdGhlbS4KICAtIGxldmVsOiBSZXF1ZXN0CiAgICB2ZXJiczogWyJnZXQiLCAibGlzdCIsICJ3YXRjaCJdCiAgICByZXNvdXJjZXM6CiAgICAgIC0gZ3JvdXA6ICIiICMgY29yZQogICAgICAtIGdyb3VwOiAiYWRtaXNzaW9ucmVnaXN0cmF0aW9uLms4cy5pbyIKICAgICAgLSBncm91cDogImFwaWV4dGVuc2lvbnMuazhzLmlvIgogICAgICAtIGdyb3VwOiAiYXBpcmVnaXN0cmF0aW9uLms4cy5pbyIKICAgICAgLSBncm91cDogImFwcHMiCiAgICAgIC0gZ3JvdXA6ICJhdXRoZW50aWNhdGlvbi5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJhdXRob3JpemF0aW9uLms4cy5pbyIKICAgICAgLSBncm91cDogImF1dG9zY2FsaW5nIgogICAgICAtIGdyb3VwOiAiYmF0Y2giCiAgICAgIC0gZ3JvdXA6ICJjZXJ0aWZpY2F0ZXMuazhzLmlvIgogICAgICAtIGdyb3VwOiAiZXh0ZW5zaW9ucyIKICAgICAgLSBncm91cDogIm1ldHJpY3MuazhzLmlvIgogICAgICAtIGdyb3VwOiAibmV0d29ya2luZy5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJwb2xpY3kiCiAgICAgIC0gZ3JvdXA6ICJyYmFjLmF1dGhvcml6YXRpb24uazhzLmlvIgogICAgICAtIGdyb3VwOiAic2NoZWR1bGluZy5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJzZXR0aW5ncy5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJzdG9yYWdlLms4cy5pbyIKICAgIG9taXRTdGFnZXM6CiAgICAgIC0gIlJlcXVlc3RSZWNlaXZlZCIKICAjIERlZmF1bHQgbGV2ZWwgZm9yIGtub3duIEFQSXMKICAtIGxldmVsOiBSZXF1ZXN0UmVzcG9uc2UKICAgIHJlc291cmNlczoKICAgICAgLSBncm91cDogIiIgIyBjb3JlCiAgICAgIC0gZ3JvdXA6ICJhZG1pc3Npb25yZWdpc3RyYXRpb24uazhzLmlvIgogICAgICAtIGdyb3VwOiAiYXBpZXh0ZW5zaW9ucy5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJhcGlyZWdpc3RyYXRpb24uazhzLmlvIgogICAgICAtIGdyb3VwOiAiYXBwcyIKICAgICAgLSBncm91cDogImF1dGhlbnRpY2F0aW9uLms4cy5pbyIKICAgICAgLSBncm91cDogImF1dGhvcml6YXRpb24uazhzLmlvIgogICAgICAtIGdyb3VwOiAiYXV0b3NjYWxpbmciCiAgICAgIC0gZ3JvdXA6ICJiYXRjaCIKICAgICAgLSBncm91cDogImNlcnRpZmljYXRlcy5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJleHRlbnNpb25zIgogICAgICAtIGdyb3VwOiAibWV0cmljcy5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJuZXR3b3JraW5nLms4cy5pbyIKICAgICAgLSBncm91cDogInBvbGljeSIKICAgICAgLSBncm91cDogInJiYWMuYXV0aG9yaXphdGlvbi5rOHMuaW8iCiAgICAgIC0gZ3JvdXA6ICJzY2hlZHVsaW5nLms4cy5pbyIKICAgICAgLSBncm91cDogInNldHRpbmdzLms4cy5pbyIKICAgICAgLSBncm91cDogInN0b3JhZ2UuazhzLmlvIgogICAgb21pdFN0YWdlczoKICAgICAgLSAiUmVxdWVzdFJlY2VpdmVkIgogICMgRGVmYXVsdCBsZXZlbCBmb3IgYWxsIG90aGVyIHJlcXVlc3RzLgogIC0gbGV2ZWw6IE1ldGFkYXRhCiAgICBvbWl0U3RhZ2VzOgogICAgICAtICJSZXF1ZXN0UmVjZWl2ZWQiCg==
+        encoding: base64
+        path: /etc/kubernetes/policies/audit-policy.yaml
+        permissions: "0600"
+      - contentFrom:
+          secret:
+            key: encryption
+            name: greenoak-encryption-provider-config
+        path: /etc/kubernetes/encryption/config.yaml
+        permissions: "0600"
+      - content: IyEvYmluL2Jhc2gKIyBlbnZfZmlsZT0iL2V0Yy9hcGlzZXJ2ZXItZW52aXJvbm1lbnQiCgpjcHVzPSIkKGdyZXAgLWMgXnByb2Nlc3NvciAvcHJvYy9jcHVpbmZvKSIKbWVtb3J5PSIkKGF3ayAnL01lbVRvdGFsLyB7IHByaW50ZiAiJWQgXG4iLCAkMi8xMDI0LzEwMjQgfScgL3Byb2MvbWVtaW5mbykiCgpkZWNsYXJlIC1pIGNwdXMKZGVjbGFyZSAtaSBtZW1vcnkKCiMgY29udmVydCB0byBtaWxsaWNvcmVzCmNwdXM9JCgoY3B1cyoxMDAwKSkKCiMgc3VidHJhY3QgZGVkaWNhdGVkIG1pbGxpY29yZXMgKHNlZSAnc3lzdGVtUmVzZXJ2ZWQnIGFuZCAna3ViZVJlc2VydmVkJyBmaWVsZHMgaW4gdGhlIGt1YmVsZXQgY29uZmlnIGZpbGUpCnN5c3Jlc2VydmVkPSQoZWNobyAiMjUwbSIgfCB0ciAtZGMgJzAtOScpCmt1YmVyZXNlcnZlZD0kKGVjaG8gIjM1MG0iIHwgdHIgLWRjICcwLTknKQpyZXNlcnZlZD0kKChzeXNyZXNlcnZlZCArIGt1YmVyZXNlcnZlZCkpCmNwdXM9JCgoY3B1cy1yZXNlcnZlZCkpCgojIHdlIGRlZGljYXRlIDMvNCBvZiBhbGwgbm9uLXJlc2VydmVkIG1pbGxpY29yZXMgdG8gdGhlIGFwaSBzZXJ2ZXIKZGVkaWNhdGVkPSQoKGNwdXMgKiAzIC8gNCkpCgojIGZvciBldmVyeSBjb3JlIHdlIGhhdmUgZGVkaWNhdGVkIHRvIGFwaSBzZXJ2ZXIgd2UgYWxsb3cgMjAwIHJlcXVlc3RzIGZvciBmYWlybmVzcy4KIyAxLzMgb2Ygc3VjaCBudW1iZXIgaXMgZm9yIG11dGF0aW5nIHJlcXVlc3RzLCAyLzMgYXJlIGZvciBhbGwgcmVxdWVzdHMuCm1heF9yZXF1ZXN0c19pbmZsaWdodD0kKChkZWRpY2F0ZWQgLyAxMDAwICogMjAwICogMiAvIDMpKQptYXhfbXV0YXRpbmdfcmVxdWVzdHNfaW5mbGlnaHQ9JCgoZGVkaWNhdGVkIC8gMTAwMCAqIDIwMCAqIDEgLyAzICkpCgojIHdyaXRlIHRoZSBlbnYgZmlsZQojIGVjaG8gIk1BWF9SRVFVRVNUU19JTkZMSUdIVD0ke21heF9yZXF1ZXN0c19pbmZsaWdodH0iID4kZW52X2ZpbGUKIyBlY2hvICJNQVhfTVVUQVRJTkdfUkVRVUVTVFNfSU5GTElHSFQ9JHttYXhfbXV0YXRpbmdfcmVxdWVzdHNfaW5mbGlnaHR9IiA+PiRlbnZfZmlsZQojIGVjaG8gIkNQVV9MSU1JVD0ke2RlZGljYXRlZH1tIiA+PiRlbnZfZmlsZQojIGVjaG8gIk1FTU9SWV9MSU1JVD0kKChtZW1vcnkgKiAzIC8gNCkpR2kiID4+JGVudl9maWxlCiMKIyBXZSByZXF1ZXN0IDEvMyBvZiB0aGUgYXZhaWxhYmxlIENQVXMgYW5kIDEvMiBvZiB0aGUgc3lzdGVtIG1lbW9yeSBqdXN0IGZvciBhcGkgc2VydmVyLgojIGVjaG8gIkNQVV9SRVFVRVNUPSQoKGNwdXMgLyAzKSltIiA+PiRlbnZfZmlsZQojIGVjaG8gIk1FTU9SWV9SRVFVRVNUPSQoKG1lbW9yeSAvIDIpKUdpIiA+PiRlbnZfZmlsZQoKIyB1cGRhdGUgc2V0dGluZ3MgaW4gdGhlIGt1YmVhZG0gcGF0Y2hlcyAKc2VkIC1pIC1lICJzL01BWF9SRVFVRVNUU19JTkZMSUdIVC8ke21heF9yZXF1ZXN0c19pbmZsaWdodH0vIiAvZXRjL2t1YmVybmV0ZXMvcGF0Y2hlcy9rdWJlLWFwaXNlcnZlcjAranNvbi55YW1sCnNlZCAtaSAtZSAicy9NQVhfTVVUQVRJTkdfUkVRVUVTVFNfSU5GTElHSFQvJHttYXhfbXV0YXRpbmdfcmVxdWVzdHNfaW5mbGlnaHR9LyIgL2V0Yy9rdWJlcm5ldGVzL3BhdGNoZXMva3ViZS1hcGlzZXJ2ZXIwK2pzb24ueWFtbAo=
+        encoding: base64
+        path: /opt/bin/configure-apiserver-fairness.sh
+        permissions: "0755"
+      - content: LSBvcDogYWRkCiAgcGF0aDogL3NwZWMvY29udGFpbmVycy8wL2NvbW1hbmQvLQogIHZhbHVlOiAtLW1heC1yZXF1ZXN0cy1pbmZsaWdodD1NQVhfUkVRVUVTVFNfSU5GTElHSFQKLSBvcDogYWRkCiAgcGF0aDogL3NwZWMvY29udGFpbmVycy8wL2NvbW1hbmQvLQogIHZhbHVlOiAtLW1heC1tdXRhdGluZy1yZXF1ZXN0cy1pbmZsaWdodD1NQVhfTVVUQVRJTkdfUkVRVUVTVFNfSU5GTElHSFQK
+        encoding: base64
+        path: /etc/kubernetes/patches/kube-apiserver0+json.yaml
+        permissions: "0644"
+      - content: LSBvcDogYWRkCiAgcGF0aDogL3NwZWMvY29udGFpbmVycy8wL2NvbW1hbmQvLQogIHZhbHVlOiAtLW5vZGUtY2lkci1tYXNrLXNpemU9MjQK
+        encoding: base64
+        path: /etc/kubernetes/patches/kube-controller-manager0+json.yaml
+        permissions: "0644"
+    format: ignition
+    ignition:
+      containerLinuxConfig:
+        additionalConfig: |
+          systemd:
+            units:      
+            - name: os-hardening.service
+              enabled: true
+              contents: |
+                [Unit]
+                Description=Apply os hardening
+                [Service]
+                Type=oneshot
+                ExecStartPre=-/bin/bash -c "gpasswd -d core rkt; gpasswd -d core docker; gpasswd -d core wheel"
+                ExecStartPre=/bin/bash -c "until [ -f '/etc/sysctl.d/hardening.conf' ]; do echo Waiting for sysctl file; sleep 1s;done;"
+                ExecStart=/usr/sbin/sysctl -p /etc/sysctl.d/hardening.conf
+                [Install]
+                WantedBy=multi-user.target
+            - name: update-engine.service
+              enabled: false
+              mask: true
+            - name: locksmithd.service
+              enabled: false
+              mask: true
+            - name: sshkeys.service
+              enabled: false
+              mask: true
+            - name: kubeadm.service
+              dropins:
+              - name: 10-flatcar.conf
+                contents: |
+                  [Unit]
+                  # kubeadm must run after coreos-metadata populated /run/metadata directory.
+                  Requires=coreos-metadata.service
+                  After=coreos-metadata.service
+                  # kubeadm must run after containerd - see https://github.com/kubernetes-sigs/image-builder/issues/939.
+                  After=containerd.service
+                  # kubeadm requires having an IP
+                  After=network-online.target
+                  Wants=network-online.target
+                  [Service]
+                  # Ensure kubeadm service has access to kubeadm binary in /opt/bin on Flatcar.
+                  Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/bin
+                  # To make metadata environment variables available for pre-kubeadm commands.
+                  EnvironmentFile=/run/metadata/*
+            - name: containerd.service
+              enabled: true
+              contents: |
+              dropins:
+              - name: 10-change-cgroup.conf
+                contents: |
+                  [Service]
+                  CPUAccounting=true
+                  MemoryAccounting=true
+                  Slice=kubereserved.slice
+            - name: auditd.service
+              enabled: false
+            - name: teleport.service
+              enabled: true
+              contents: |
+                [Unit]
+                Description=Teleport Service
+                After=network.target
+                [Service]
+                Type=simple
+                Restart=on-failure
+                ExecStart=/opt/bin/teleport start --roles=node --config=/etc/teleport.yaml --pid-file=/run/teleport.pid
+                ExecReload=/bin/kill -HUP $MAINPID
+                PIDFile=/run/teleport.pid
+                LimitNOFILE=524288
+                [Install]
+                WantedBy=multi-user.target            
+            - name: kubelet-aws-config.service
+              enabled: true
+            - name: var-lib-etcd.mount
+              enabled: true
+              contents: |
+                [Unit]
+                Description=etcd volume
+                DefaultDependencies=no
+                [Mount]
+                What=/dev/disk/by-label/etcd
+                Where=/var/lib/etcd
+                Type=xfs
+                [Install]
+                WantedBy=local-fs-pre.target
+            - name: var-lib.mount
+              enabled: true
+              contents: |
+                [Unit]
+                Description=var lib volume
+                DefaultDependencies=no
+                [Mount]
+                What=/dev/disk/by-label/lib
+                Where=/var/lib
+                Type=xfs
+                [Install]
+                WantedBy=local-fs-pre.target
+            - name: var-log.mount
+              enabled: true
+              contents: |
+                [Unit]
+                Description=log volume
+                DefaultDependencies=no
+                [Mount]
+                What=/dev/disk/by-label/log
+                Where=/var/log
+                Type=xfs
+                [Install]
+                WantedBy=local-fs-pre.target
+          storage:
+            filesystems:      
+            - name: etcd
+              mount:
+                device: /dev/xvdc
+                format: xfs
+                wipeFilesystem: true
+                label: etcd
+            - name: lib
+              mount:
+                device: /dev/xvdd
+                format: xfs
+                wipeFilesystem: true
+                label: lib
+            - name: log
+              mount:
+                device: /dev/xvde
+                format: xfs
+                wipeFilesystem: true
+                label: log
+            directories:      
+            - path: /var/lib/kubelet
+              mode: 0750      
+            disks:
+    initConfiguration:
+      localAPIEndpoint:
+        bindPort: 6443
+      nodeRegistration:
+        imagePullPolicy: IfNotPresent
+        kubeletExtraArgs:
+          - name: cgroup-driver
+            value: systemd
+          - name: cloud-provider
+            value: external
+          - name: healthz-bind-address
+            value: 0.0.0.0
+          - name: node-ip
+            value: ${COREOS_EC2_IPV4_LOCAL}
+          - name: node-labels
+            value: ip=${COREOS_EC2_IPV4_LOCAL}
+          - name: register-with-taints
+            value: node-role.kubernetes.io/control-plane="":NoSchedule
+          - name: v
+            value: "2"
+        name: ${COREOS_EC2_HOSTNAME}
+      patches:
+        directory: /etc/kubernetes/patches
+      skipPhases:
+        - addon/kube-proxy
+        - addon/coredns
+      timeouts:
+        controlPlaneComponentHealthCheckSeconds: 1200
+    joinConfiguration:
+      controlPlane:
+        localAPIEndpoint:
+          bindPort: 6443
+      nodeRegistration:
+        imagePullPolicy: IfNotPresent
+        kubeletExtraArgs:
+          - name: cgroup-driver
+            value: systemd
+          - name: cloud-provider
+            value: external
+          - name: node-ip
+            value: ${COREOS_EC2_IPV4_LOCAL}
+          - name: node-labels
+            value: ip=${COREOS_EC2_IPV4_LOCAL}
+          - name: register-with-taints
+            value: node-role.kubernetes.io/control-plane="":NoSchedule
+        name: ${COREOS_EC2_HOSTNAME}
+      patches:
+        directory: /etc/kubernetes/patches
+      timeouts:
+        controlPlaneComponentHealthCheckSeconds: 1200
+    preKubeadmCommands:
+      - envsubst < /etc/kubeadm.yml > /etc/kubeadm.yml.tmp
+      - mv /etc/kubeadm.yml.tmp /etc/kubeadm.yml
+      - systemctl restart containerd
+      - /opt/bin/configure-apiserver-fairness.sh
+  machineTemplate:
+    metadata:
+      labels:
+        app: cluster-aws
+        app.kubernetes.io/instance: greenoak
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: cluster
+        app.kubernetes.io/part-of: cluster-aws
+        app.kubernetes.io/version: 4.4.0
+        application.giantswarm.io/team: turtles
+        cluster.x-k8s.io/cluster-name: greenoak
+        cluster.x-k8s.io/watch-filter: capi
+        giantswarm.io/cluster: greenoak
+        giantswarm.io/organization: giantswarm
+        giantswarm.io/service-priority: highest
+        helm.sh/chart: cluster-4.4.0
+        release.giantswarm.io/version: 33.1.1
+    spec:
+      infrastructureRef:
+        apiGroup: infrastructure.cluster.x-k8s.io
+        kind: AWSMachineTemplate
+        name: greenoak-control-plane-cf88d610
+  replicas: 3
+  rollout:
+    before:
+      certificatesExpiryDays: 180
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+      type: RollingUpdate
+  version: v1.33.6
+status:
+  availableReplicas: 3
+  conditions:
+    - lastTransitionTime: "2026-01-14T15:19:55Z"
+      message: ""
+      observedGeneration: 2
+      reason: Available
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-01-08T15:02:08Z"
+      message: ""
+      observedGeneration: 2
+      reason: Available
+      status: "True"
+      type: CertificatesAvailable
+    - lastTransitionTime: "2026-01-08T15:02:09Z"
+      message: ""
+      observedGeneration: 2
+      reason: Initialized
+      status: "True"
+      type: Initialized
+    - lastTransitionTime: "2026-01-14T15:19:55Z"
+      message: ""
+      observedGeneration: 2
+      reason: Healthy
+      status: "True"
+      type: EtcdClusterHealthy
+    - lastTransitionTime: "2026-01-13T16:03:10Z"
+      message: ""
+      observedGeneration: 2
+      reason: Healthy
+      status: "True"
+      type: ControlPlaneComponentsHealthy
+    - lastTransitionTime: "2026-01-13T16:03:11Z"
+      message: ""
+      observedGeneration: 2
+      reason: NotRollingOut
+      status: "False"
+      type: RollingOut
+    - lastTransitionTime: "2026-01-08T15:02:06Z"
+      message: ""
+      observedGeneration: 2
+      reason: NotRemediating
+      status: "False"
+      type: Remediating
+    - lastTransitionTime: "2026-01-13T16:03:11Z"
+      message: ""
+      observedGeneration: 2
+      reason: NotScalingDown
+      status: "False"
+      type: ScalingDown
+    - lastTransitionTime: "2026-01-08T15:02:09Z"
+      message: ""
+      observedGeneration: 2
+      reason: NotScalingUp
+      status: "False"
+      type: ScalingUp
+    - lastTransitionTime: "2026-01-14T15:19:56Z"
+      message: ""
+      observedGeneration: 2
+      reason: Ready
+      status: "True"
+      type: MachinesReady
+    - lastTransitionTime: "2026-01-13T16:03:11Z"
+      message: ""
+      observedGeneration: 2
+      reason: UpToDate
+      status: "True"
+      type: MachinesUpToDate
+    - lastTransitionTime: "2026-01-08T15:02:06Z"
+      message: ""
+      observedGeneration: 2
+      reason: NotPaused
+      status: "False"
+      type: Paused
+    - lastTransitionTime: "2026-01-08T15:02:06Z"
+      message: ""
+      observedGeneration: 2
+      reason: NotDeleting
+      status: "False"
+      type: Deleting
+  deprecated:
+    v1beta1:
+      conditions:
+        - lastTransitionTime: "2026-01-13T16:03:11Z"
+          status: "True"
+          type: Ready
+        - lastTransitionTime: "2026-01-08T15:02:09Z"
+          status: "True"
+          type: Available
+        - lastTransitionTime: "2026-01-08T15:02:08Z"
+          status: "True"
+          type: CertificatesAvailable
+        - lastTransitionTime: "2026-01-13T16:03:11Z"
+          status: "True"
+          type: ControlPlaneComponentsHealthy
+        - lastTransitionTime: "2026-01-14T15:19:55Z"
+          status: "True"
+          type: EtcdClusterHealthy
+        - lastTransitionTime: "2026-01-08T15:02:09Z"
+          status: "True"
+          type: MachinesCreated
+        - lastTransitionTime: "2026-01-13T16:03:11Z"
+          status: "True"
+          type: MachinesReady
+        - lastTransitionTime: "2026-01-13T16:03:11Z"
+          status: "True"
+          type: MachinesSpecUpToDate
+        - lastTransitionTime: "2026-01-13T16:03:11Z"
+          status: "True"
+          type: Resized
+      readyReplicas: 3
+      unavailableReplicas: 0
+      updatedReplicas: 3
+  initialization:
+    controlPlaneInitialized: true
+  observedGeneration: 2
+  readyReplicas: 3
+  replicas: 3
+  selector: cluster.x-k8s.io/cluster-name=greenoak,cluster.x-k8s.io/control-plane
+  upToDateReplicas: 3
+  version: v1.33.6
