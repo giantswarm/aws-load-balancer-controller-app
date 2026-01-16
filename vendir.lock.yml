@@ -12,5 +12,5 @@ directories:
 - contents:
   - directory: {}
     path: .
-  path: helm/aws-lb-controller
+  path: helm/aws-load-balancer-controller
 kind: LockConfig

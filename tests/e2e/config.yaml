@@ -1,5 +1,5 @@
 appName: "aws-lb-controller-bundle"
-repoName: "aws-load-balancer-controller-app"
+repoName: "aws-lb-controller-bundle"
 appCatalog: "giantswarm"
 
 # CAPI providers to test against when triggering `/run app-test-suites` from a PR
