@@ -23,8 +23,6 @@ image:
 
 runtimeClassName: ""
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 # AWS LBC only has 1 main working pod, other pods are just standby
 # the purpose of enable hpa is to survive load induced failure by the calls to the aws-load-balancer-webhook-service
