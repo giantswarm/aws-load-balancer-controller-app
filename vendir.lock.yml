@@ -4,9 +4,9 @@ directories:
   - git:
       commitTitle: Add unhealthyPodEvictionPolicy and define status port in deployment
         (#10)...
-      sha: 79e0d40184135d0d33ba576cc33148fbac4b2928
+      sha: ab0e5f188a18ac48ae1038d9e30b5126ec48b9ea
       tags:
-      - v2.7.0-730-g79e0d4018
+      - v2.7.0-749-gab0e5f188
     path: aws-load-balancer-controller
   path: vendor
 - contents:
