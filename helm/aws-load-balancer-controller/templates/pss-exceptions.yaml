@@ -7,7 +7,7 @@ apiVersion: kyverno.io/v2beta1
 kind: PolicyException
 metadata:
   name: {{ include "aws-load-balancer-controller.fullname" . }}
-  namespace: policy-exceptions
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aws-load-balancer-controller.labels" . | nindent 4 }}
   annotations:

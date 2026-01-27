@@ -11,7 +11,9 @@ metadata:
     {{- include "aws-load-balancer-controller.labels" . | nindent 4 }}
     giantswarm.io/service-type: "managed"
 spec:
+  {{ if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{ end }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
@@ -35,6 +37,7 @@ spec:
         {{- if .Values.podAnnotations }}
         {{- toYaml .Values.podAnnotations | nindent 8 }}
         {{- end }}
+        {{- include "aws-load-balancer-controller.iamPodAnnotation" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -63,13 +66,17 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         args:
+        {{- if .Values.clusterName }}
         - --cluster-name={{ required "Chart cannot be installed without a valid clusterName!" (tpl (default "" .Values.clusterName) .) }}
+        {{ else}}
+        - --cluster-name={{ .Values.clusterID }}
+        {{- end }}
         {{- if .Values.ingressClass }}
         - --ingress-class={{ .Values.ingressClass }}
         {{- end }}
         {{- $region := tpl (default "" .Values.region) . }}
         {{- if $region }}
-        - --aws-region={{ .Values.region }}
+        - --aws-region={{ $region }}
         {{- end }}
         {{- $vpcID := tpl (default "" .Values.vpcId) . }}
         {{- if $vpcID }}
@@ -111,6 +118,15 @@ spec:
         {{- if .Values.targetgroupbindingMaxExponentialBackoffDelay }}
         - --targetgroupbinding-max-exponential-backoff-delay={{ .Values.targetgroupbindingMaxExponentialBackoffDelay }}
         {{- end }}
+        {{- if .Values.globalAcceleratorMaxConcurrentReconciles }}
+        - --globalaccelerator-max-concurrent-reconciles={{ .Values.globalAcceleratorMaxConcurrentReconciles }}
+        {{- end }}
+        {{- if .Values.globalAcceleratorMaxExponentialBackoffDelay }}
+        - --globalaccelerator-max-exponential-backoff-delay={{ .Values.globalAcceleratorMaxExponentialBackoffDelay }}
+        {{- end }}
+        {{- if .Values.lbStabilizationMonitorInterval }}
+        - --lb-stabilization-monitor-interval={{ .Values.lbStabilizationMonitorInterval }}
+        {{- end }}
         {{- if .Values.logLevel }}
         - --log-level={{ .Values.logLevel }}
         {{- end }}
@@ -141,14 +157,23 @@ spec:
         {{- if .Values.externalManagedTags }}
         - --external-managed-tags={{ join "," .Values.externalManagedTags }}
         {{- end }}
+{{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
+{{/*    - "kubernetes.io/cluster/$clusterID=owned"
+{{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
+        {{- $baseTags := dict (printf "kubernetes.io/cluster/%s" .Values.clusterID) "owned" "kubernetes.io/service-name" "aws-alb-controller" -}}
+        {{- $mergedTags := $baseTags -}}
         {{- if .Values.defaultTags }}
-        - --default-tags={{ include "aws-load-balancer-controller.convertMapToCsv" .Values.defaultTags | trimSuffix "," }}
+          {{- $mergedTags = merge $baseTags .Values.defaultTags -}}
         {{- end }}
+        - --default-tags={{ include "aws-load-balancer-controller.convertMapToCsv" $mergedTags | trimSuffix "," }}
         {{- if kindIs "bool" .Values.enableEndpointSlices }}
         - --enable-endpoint-slices={{ .Values.enableEndpointSlices }}
         {{- end }}
         {{- if kindIs "bool" .Values.enableBackendSecurityGroup }}
         - --enable-backend-security-group={{ .Values.enableBackendSecurityGroup }}
+        {{- end }}
+        {{- if kindIs "bool" .Values.enableManageBackendSecurityGroupRules }}
+        - --enable-manage-backend-security-group-rules={{ .Values.enableManageBackendSecurityGroupRules }}
         {{- end }}
         {{- if .Values.backendSecurityGroup }}
         - --backend-security-group={{ .Values.backendSecurityGroup }}
@@ -162,6 +187,9 @@ spec:
         {{- if ne .Values.defaultTargetType "instance" }}
         - --default-target-type={{ .Values.defaultTargetType }}
         {{- end }}
+        {{- if .Values.defaultLoadBalancerScheme }}
+        - --default-load-balancer-scheme={{ .Values.defaultLoadBalancerScheme }}
+        {{- end }}
         {{- if .Values.serviceTargetENISGTags }}
         - --service-target-eni-security-group-tags={{ .Values.serviceTargetENISGTags }}
         {{- end }}
@@ -171,16 +199,19 @@ spec:
         {{- if .Values.loadBalancerClass }}
         - --load-balancer-class={{ .Values.loadBalancerClass }}
         {{- end }}
-        {{- if or .Values.env .Values.envSecretName .Values.envFrom }}
+        {{- if .Values.vpcTags }}
+        - --aws-vpc-tags={{ include "aws-load-balancer-controller.convertMapToCsv" .Values.vpcTags | trimSuffix "," }}
+        {{- end }}
+        {{- if .Values.maxTargetsPerTargetGroup }}
+        - --max-targets-per-target-group={{ .Values.maxTargetsPerTargetGroup }}
+        {{- end }}
+        {{- if or .Values.env .Values.envSecretName }}
         env:
         {{- if .Values.env}}
         {{- range $key, $value := .Values.env }}
         - name: {{ $key }}
           value: "{{ $value }}"
         {{- end }}
-        {{- end }}
-        {{- if .Values.envFrom }}
-        {{ .Values.envFrom | toYaml | nindent 8 }}
         {{- end }}
         {{- if .Values.envSecretName  }}
         - name: AWS_ACCESS_KEY_ID
@@ -196,6 +227,10 @@ spec:
               key: access_key
               optional: true
         {{- end }}
+        {{- end }}
+        {{- if .Values.envFrom }}
+        envFrom:
+        {{- toYaml .Values.envFrom | nindent 10 }}
         {{- end }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
