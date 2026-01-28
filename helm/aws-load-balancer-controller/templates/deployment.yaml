@@ -9,7 +9,6 @@ metadata:
   {{- end }}
   labels:
     {{- include "aws-load-balancer-controller.labels" . | nindent 4 }}
-    giantswarm.io/service-type: "managed"
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
@@ -199,7 +198,7 @@ spec:
         {{- end }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
-        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         volumeMounts:
         - mountPath: /tmp/k8s-webhook-server/serving-certs
@@ -214,9 +213,6 @@ spec:
           protocol: TCP
         - name: metrics-server
           containerPort: {{ (split ":" .Values.metricsBindAddr)._1 | default 8080 }}
-          protocol: TCP
-        - name: status
-          containerPort: 61779
           protocol: TCP
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
