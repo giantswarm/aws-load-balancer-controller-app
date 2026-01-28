@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: remove PSPs, move PSS to the right namespace
-      sha: 258f121b5e3592eca92369630f966001142725dd
+      commitTitle: 'fix: update cluster name reference in deployment configuration'
+      sha: c9231149eed85906d39723a0cfa64a455c246c04
       tags:
-      - v2.7.0-751-g258f121b5
+      - v2.7.0-752-gc9231149e
     path: aws-load-balancer-controller
   path: vendor
 - contents:

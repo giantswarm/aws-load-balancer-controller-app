@@ -69,7 +69,7 @@ spec:
         {{- if .Values.clusterName }}
         - --cluster-name={{ required "Chart cannot be installed without a valid clusterName!" (tpl (default "" .Values.clusterName) .) }}
         {{ else}}
-        - --cluster-name={{ .Values.clusterID }}
+        - --cluster-name={{ .Values.clusterName }}
         {{- end }}
         {{- if .Values.ingressClass }}
         - --ingress-class={{ .Values.ingressClass }}
@@ -158,9 +158,9 @@ spec:
         - --external-managed-tags={{ join "," .Values.externalManagedTags }}
         {{- end }}
 {{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
-{{/*    - "kubernetes.io/cluster/$clusterID=owned"
+{{/*    - "kubernetes.io/cluster/$clusterName=owned"
 {{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
-        {{- $baseTags := dict (printf "kubernetes.io/cluster/%s" .Values.clusterID) "owned" "kubernetes.io/service-name" "aws-alb-controller" -}}
+        {{- $baseTags := dict (printf "kubernetes.io/cluster/%s" .Values.clusterName) "owned" "kubernetes.io/service-name" "aws-alb-controller" -}}
         {{- $mergedTags := $baseTags -}}
         {{- if .Values.defaultTags }}
           {{- $mergedTags = merge $baseTags .Values.defaultTags -}}
