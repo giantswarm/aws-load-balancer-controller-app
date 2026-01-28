@@ -2,10 +2,11 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'fix: update cluster name reference in deployment configuration'
-      sha: c9231149eed85906d39723a0cfa64a455c246c04
+      commitTitle: 'refactor: remove unused IAM pod annotations and clean up service
+        account template'
+      sha: bc55b6335dda3b863529b030978c2f016ec7e12d
       tags:
-      - v2.7.0-752-gc9231149e
+      - v2.7.0-753-gbc55b6335
     path: aws-load-balancer-controller
   path: vendor
 - contents:

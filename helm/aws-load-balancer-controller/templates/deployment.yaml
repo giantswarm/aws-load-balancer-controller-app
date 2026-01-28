@@ -66,11 +66,7 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         args:
-        {{- if .Values.clusterName }}
         - --cluster-name={{ required "Chart cannot be installed without a valid clusterName!" (tpl (default "" .Values.clusterName) .) }}
-        {{ else}}
-        - --cluster-name={{ .Values.clusterName }}
-        {{- end }}
         {{- if .Values.ingressClass }}
         - --ingress-class={{ .Values.ingressClass }}
         {{- end }}
@@ -157,15 +153,9 @@ spec:
         {{- if .Values.externalManagedTags }}
         - --external-managed-tags={{ join "," .Values.externalManagedTags }}
         {{- end }}
-{{/*    We always need to pass the following tags so that resources created by this controller are removed by CAPA when removing a CAPA cluster */}}
-{{/*    - "kubernetes.io/cluster/$clusterName=owned"
-{{/*    - "kubernetes.io/service-name=aws-alb-controller"*/}}
-        {{- $baseTags := dict (printf "kubernetes.io/cluster/%s" .Values.clusterName) "owned" "kubernetes.io/service-name" "aws-alb-controller" -}}
-        {{- $mergedTags := $baseTags -}}
         {{- if .Values.defaultTags }}
-          {{- $mergedTags = merge $baseTags .Values.defaultTags -}}
+        - --default-tags={{ include "aws-load-balancer-controller.convertMapToCsv" .Values.defaultTags | trimSuffix "," }}
         {{- end }}
-        - --default-tags={{ include "aws-load-balancer-controller.convertMapToCsv" $mergedTags | trimSuffix "," }}
         {{- if kindIs "bool" .Values.enableEndpointSlices }}
         - --enable-endpoint-slices={{ .Values.enableEndpointSlices }}
         {{- end }}
