@@ -2,11 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: 'refactor: remove unused IAM pod annotations and clean up service
-        account template'
-      sha: bc55b6335dda3b863529b030978c2f016ec7e12d
+      commitTitle: remove annotation
+      sha: 96bbf699bfec73f08ef510ebbfddf8a5072ab460
       tags:
-      - v2.7.0-753-gbc55b6335
+      - v2.7.0-754-g96bbf699b
     path: aws-load-balancer-controller
   path: vendor
 - contents:
