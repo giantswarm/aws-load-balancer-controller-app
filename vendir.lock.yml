@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Regenerate values.schema.json for v3.0.0...
-      sha: 6714fb719b6b4acbf9dad09a4a4680da4de46d10
+      commitTitle: remove PSPs, move PSS to the right namespace
+      sha: 258f121b5e3592eca92369630f966001142725dd
       tags:
-      - v2.7.0-750-g6714fb719
+      - v2.7.0-751-g258f121b5
     path: aws-load-balancer-controller
   path: vendor
 - contents:
