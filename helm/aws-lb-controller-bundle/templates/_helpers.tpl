@@ -132,7 +132,6 @@ Strips bundle-only keys and restructures into:
   upstream:
     <all upstream controller values>
   verticalPodAutoscaler: ...
-  global: ...
 */}}
 {{- define "giantswarm.workloadValues" -}}
 {{- $workload := dict -}}
@@ -141,7 +140,7 @@ Strips bundle-only keys and restructures into:
 {{- $bundleOnlyKeys := list "bundleNameOverride" "fullBundleNameOverride" "ociRepositoryUrl" "valuesFromSecret" -}}
 
 {{/* Keys that are GS extras — forwarded at the top level of the workload chart */}}
-{{- $extrasKeys := list "verticalPodAutoscaler" "global" "networkPolicy" -}}
+{{- $extrasKeys := list "verticalPodAutoscaler" "networkPolicy" -}}
 
 {{/* Keys that need special transformation */}}
 {{- $specialKeys := list "image" "clusterName" -}}
