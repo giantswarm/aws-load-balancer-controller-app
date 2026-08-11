@@ -2,5 +2,4 @@ generate-metadata: true
 chart-dir: ./helm/aws-load-balancer-controller
 catalog-base-url: https://giantswarm.github.io/giantswarm-catalog/
 ct-config: ./.circleci/ct-config.yaml
-helm-template-extra-values:
-  - ./.circleci/abs-template-values.yaml
+helm-template-extra-values: ./.circleci/abs-template-values.yaml
